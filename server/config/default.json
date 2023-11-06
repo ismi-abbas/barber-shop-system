@@ -1,0 +1,12 @@
+{
+	"PORT": 5640,
+	"ACCESS_CONTROL_ALLOW_ORIGIN": ["*"],
+	"db": {
+		"host": "localhost",
+		"user": "root",
+		"password": "root",
+		"database": "barber_shop",
+		"port": "3306",
+		"connectionLimit": 10
+	}
+}
