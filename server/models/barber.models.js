@@ -1,5 +1,5 @@
 const { executeQuery } = require("../utils/db");
-const logger = require("../utils/logger");
+const { logger } = require("../utils/logger");
 
 const findAll = async () => {
 	try {
@@ -18,7 +18,11 @@ const findById = async (id) => {
 		const data = [id];
 		const response = await executeQuery(query, data);
 
-		return response;
+		if (response) {
+			return response;
+		} else {
+			return "No record found";
+		}
 	} catch (error) {
 		logger.error(`Error fetching barbers: ${error.message}`);
 	}
@@ -26,16 +30,25 @@ const findById = async (id) => {
 
 const create = async ({ name, email, phone, password }) => {
 	try {
-		const query =
-			"INSERT INTO Barber (name, email, phone, password, barbershop_id, availability) VALUES (?, ?, ?, ?, ?, ?)";
-		const data = [name, email, phone, password, null, "true"];
+		const exist = await executeQuery(
+			"SELECT * FROM barber_shop.Barber WHERE name = ? AND email = ?",
+			[name, email]
+		);
 
-		const response = await executeQuery(query, data);
+		if (!exist) {
+			const query =
+				"INSERT INTO Barber (name, email, phone, password, barbershop_id, availability) VALUES (?, ?, ?, ?, ?, ?)";
+			const data = [name, email, phone, password, null, "true"];
 
-		if (response) {
-			return response;
+			const response = await executeQuery(query, data);
+
+			if (response) {
+				return response;
+			} else {
+				return "Error creating barber";
+			}
 		} else {
-			return "Error creating barber";
+			return "User existed";
 		}
 	} catch (error) {
 		return error;

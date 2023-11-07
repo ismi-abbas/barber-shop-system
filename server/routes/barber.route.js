@@ -10,32 +10,33 @@ const {
 const barberRouter = express.Router();
 
 barberRouter.get("/", async (_req, res) => {
-	const data = await getAll();
-	res.status(200).send(data);
+	const response = await getAll();
+	res.status(response.statusCode).send(response);
 });
 
 barberRouter.get("/:id", async (req, res) => {
 	const { id } = req.params;
-	const data = await getById(id);
-	res.send(data);
+	const response = await getById(id);
+	res.status(response.statusCode).send(response);
 });
 
 barberRouter.post("/create", async (req, res) => {
 	const { body } = req;
-	const data = await createBarber(body);
-	res.send(data);
+	const response = await createBarber(body);
+
+	res.status(response.statusCode).send(response);
 });
 
 barberRouter.put("/update", async (req, res) => {
 	const { body } = req;
 	const response = await updateBarber(body);
-	res.send(response);
+	res.status(response.statusCode).send(response);
 });
 
 barberRouter.delete("/:id", async (req, res) => {
 	const { id } = req.params;
 	const response = await deleteBarber(id);
-	res.send(response);
+	res.status(response.statusCode).send(response);
 });
 
 module.exports = barberRouter;

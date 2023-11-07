@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const _ = require("lodash");
-const logger = require("./logger");
+const { logger } = require("./logger");
 
 const dbConfig = { ...require("config").get("db") };
 let pool;

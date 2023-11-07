@@ -1,5 +1,5 @@
 const { executeQuery } = require("../utils/db");
-const logger = require("../utils/logger");
+const { logger } = require("../utils/logger");
 
 // Bookings functions
 const findAll = async () => {

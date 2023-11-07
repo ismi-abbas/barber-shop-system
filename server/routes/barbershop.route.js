@@ -10,20 +10,20 @@ const {
 const barbershop = express.Router();
 
 barbershop.get("/", async (_req, res) => {
-	const data = await getAllBarbershop();
-	res.status(200).send(data);
+	const response = await getAllBarbershop();
+	res.status(response.statusCode).send(response);
 });
 
-barbershop.post("/:id", async (req, res) => {
+barbershop.get("/:id", async (req, res) => {
 	const { id } = req.params;
 	const data = await getBarberShopById(id);
-	res.send(data);
+	res.status(data.statusCode).send(data);
 });
 
 barbershop.post("/create", async (req, res) => {
 	const { body } = req;
 	const data = await createBarbershop(body);
-	res.send(data);
+	res.status(data.statusCode).send(data);
 });
 
 barbershop.put("/update", async (req, res) => {

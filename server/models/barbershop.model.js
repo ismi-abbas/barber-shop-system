@@ -15,8 +15,13 @@ const findById = async (id) => {
 	try {
 		const query = `SELECT * FROM barber_shop.Barbershop WHERE id = ?;`;
 		const data = [id];
-		const response = await executeQuery(query, null);
-		return response;
+		const response = await executeQuery(query, data);
+
+		if (response) {
+			return response;
+		} else {
+			throw new Error();
+		}
 	} catch (error) {
 		logger.error(`Error fetching barbershops: ${error.message}`);
 	}
@@ -24,16 +29,25 @@ const findById = async (id) => {
 
 const create = async ({ name, location }) => {
 	try {
-		const query =
-			"INSERT INTO barber_shop.Barbershop (name, location) VALUES (?, ?)";
-		const data = [name, location];
+		const exist = await executeQuery(
+			"SELECT * FROM barber_shop.Barbershop WHERE name = ? AND location = ?",
+			[name, location]
+		);
 
-		const response = await executeQuery(query, data);
+		if (exist.length === 0) {
+			const query =
+				"INSERT INTO barber_shop.Barbershop (name, location) VALUES (?, ?)";
+			const data = [name, location];
 
-		if (response) {
-			return response;
+			const response = await executeQuery(query, data);
+
+			if (response) {
+				return response;
+			} else {
+				return "Error creating barbershop";
+			}
 		} else {
-			return "Error creating barbershop";
+			return "Barbershop existed";
 		}
 	} catch (error) {
 		return error;

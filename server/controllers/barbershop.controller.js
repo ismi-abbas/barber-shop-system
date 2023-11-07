@@ -4,7 +4,7 @@ const utils = require("../utils");
 const getAllBarbershop = async () => {
 	try {
 		const data = await barberShop.findAll();
-		return data;
+		return utils.prepareResponse(data, 200, "success");
 	} catch (error) {
 		throw new Error("Error finding all barbers");
 	}
@@ -13,21 +13,28 @@ const getAllBarbershop = async () => {
 const getBarberShopById = async (barberId) => {
 	try {
 		const data = await barberShop.findById(barberId);
+		if (data.length > 0) {
+			return utils.prepareResponse(data, 200, "success");
+		} else {
+			return utils.prepareResponse(null, 404, "No record found");
+		}
 	} catch (error) {
 		utils.handleError("Error getting barber info");
 	}
 };
 
 const createBarbershop = async (data) => {
-	const { password } = data;
-	const hashedPassword = await utils.createHashPassword(password);
-
-	data.password = hashedPassword;
 	try {
 		const response = await barberShop.create(data);
 
-		if (response) {
+		if (response.data) {
 			return utils.prepareResponse(response, 200, "success");
+		} else {
+			return utils.prepareResponse(
+				response,
+				400,
+				"Error creating barbershop"
+			);
 		}
 	} catch (error) {
 		utils.handleError("Error creating barber");

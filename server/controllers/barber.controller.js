@@ -30,8 +30,10 @@ const createBarber = async (data) => {
 	try {
 		const response = await barberModel.create(data);
 
-		if (response) {
+		if (response.data) {
 			return utils.prepareResponse(response, 200, "success");
+		} else if (response === "User existed") {
+			return utils.prepareResponse(response, 400, "failed");
 		}
 	} catch (error) {
 		utils.handleError("Error creating barber");
