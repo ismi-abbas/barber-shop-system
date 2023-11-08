@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
 	return (
 		<div className="w-full h-screen bg-white flex flex-col">
 			<Header />
-			<div className="h-auto">{children}</div>
+			<div className="h-full">{children}</div>
 			<Footer />
 		</div>
 	);

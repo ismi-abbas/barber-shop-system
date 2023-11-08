@@ -1,30 +1,37 @@
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Layout from "../components/shared/Layout";
 import { registerUser } from "../api/users";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+	const queryClient = useQueryClient();
+	const navigate = useNavigate();
+
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
 
-	const {
-		data: userData,
-		isLoading,
-		isError,
-	} = useQuery({
-		queryFn: () => registerUser({ name, email, phone, password }),
-		queryKey: ["customer"],
+	const { mutateAsync: registerUserMutation } = useMutation({
+		mutationFn: registerUser,
+		onSuccess: () => {
+			queryClient.invalidateQueries();
+			navigate("/login");
+		},
 	});
 
-	if (isLoading) {
-		return <div>...loading</div>;
-	}
-
-	if (isError) {
-		return <div>An Error Occured</div>;
-	}
+	const handleRegisterUser = async () => {
+		try {
+			await registerUserMutation({ name, email, phone, password });
+			setEmail("");
+			setName("");
+			setPhone("");
+			setPassword("");
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<Layout>
@@ -54,12 +61,12 @@ const Register = () => {
 							htmlFor="name"
 							className="block text-sm font-medium leading-6 text-gray-900"
 						>
-							Name
+							Email
 						</label>
 						<input
+							type="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
-							type="email"
 							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
 						/>
 					</div>
@@ -92,6 +99,15 @@ const Register = () => {
 							type="email"
 							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
 						/>
+					</div>
+
+					<div className="">
+						<button
+							className="w-full p-2 border bg-indigo-600 text-white tracking-wide rounded-lg text-center mt-2 hover:mouse-pointer"
+							onClick={handleRegisterUser}
+						>
+							Register
+						</button>
 					</div>
 				</div>
 			</div>

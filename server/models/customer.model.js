@@ -1,7 +1,6 @@
 const { executeQuery } = require("../utils/db");
 const logger = require("../utils/logger");
 
-// Customer functions
 const findAll = async () => {
 	try {
 		const query = `SELECT * FROM barber_shop.Customer;`;
@@ -16,7 +15,7 @@ const findById = async (id) => {
 	try {
 		const query = `SELECT * FROM barber_shop.Customer WHERE id = ?;`;
 		const data = [id];
-		const response = await executeQuery(query, null);
+		const response = await executeQuery(query, data);
 		return response;
 	} catch (error) {
 		logger.error(`Error fetching customers: ${error.message}`);
@@ -25,16 +24,25 @@ const findById = async (id) => {
 
 const create = async ({ name, email, phone, password }) => {
 	try {
-		const query =
-			"INSERT INTO barber_shop.Customer (name, email, phone, password) VALUES (?, ?, ?, ?);";
-		const data = [name, email, phone, password];
+		const exist = await executeQuery(
+			"SELECT * FROM barber_shop.Customer WHERE name = ? AND email = ?;",
+			[name, email]
+		);
 
-		const response = await executeQuery(query, data);
+		if (exist.length === 0) {
+			const query =
+				"INSERT INTO barber_shop.Customer (name, email, phone, password) VALUES (?, ?, ?, ?);";
+			const data = [name, email, phone, password];
 
-		if (response) {
-			return response;
+			const response = await executeQuery(query, data);
+
+			if (response) {
+				return response;
+			} else {
+				return "Error creating customer";
+			}
 		} else {
-			return "Error creating customer";
+			return "Customer with this email existed";
 		}
 	} catch (error) {
 		return error;
@@ -95,10 +103,26 @@ const remove = async (customerId) => {
 	}
 };
 
+const login = async (email) => {
+	try {
+		const query = `SELECT id, name, email, phone, password from Customer WHERE email = ?`;
+		const data = [email];
+
+		const response = await executeQuery(query, data);
+
+		if (response) {
+			return response;
+		} else {
+			return "Error deleting customer";
+		}
+	} catch (error) {}
+};
+
 module.exports = {
 	findAll,
 	findById,
 	create,
 	update,
 	remove,
+	login,
 };

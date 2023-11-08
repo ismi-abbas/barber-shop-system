@@ -37,8 +37,7 @@ const createBarbershop = async (data) => {
 			);
 		}
 	} catch (error) {
-		utils.handleError("Error creating barber");
-		return error;
+		return utils.handleError("Error creating barber");
 	}
 };
 

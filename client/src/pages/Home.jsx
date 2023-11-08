@@ -5,7 +5,7 @@ const Home = () => {
 	return (
 		<Layout>
 			<div className="flex flex-col items-center">
-				<div className="font-extrabold text-4xl">Welcome to Barbershop.co</div>
+				<div className="font-extrabold text-4xl">Welcome to BarberBook.co</div>
 				<p>
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sit
 					labore cum fugiat odio iste? Qui vero quas incidunt. Atque officia non

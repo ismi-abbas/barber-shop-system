@@ -1,12 +1,15 @@
-const barberModel = require("../models/barber.models");
+const barberModel = require("../models/barber.model");
 const utils = require("../utils");
 
 const getAll = async () => {
 	try {
-		const data = await barberModel.findAll();
-		return data;
+		const response = await barberModel.findAll();
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
 	} catch (error) {
-		throw new Error("Error finding all barbers");
+		return utils.handleError(error);
 	}
 };
 
@@ -18,13 +21,13 @@ const getById = async (barberId) => {
 			return utils.prepareResponse(response, 200, "success");
 		}
 	} catch (error) {
-		utils.handleError("Error getting barber info");
+		return utils.handleError(error);
 	}
 };
 
 const createBarber = async (data) => {
 	const { password } = data;
-	const hashedPassword = await utils.createHashPassword(password);
+	const hashedPassword = await utils.hashPasssword(password);
 
 	data.password = hashedPassword;
 	try {
@@ -36,8 +39,7 @@ const createBarber = async (data) => {
 			return utils.prepareResponse(response, 400, "failed");
 		}
 	} catch (error) {
-		utils.handleError("Error creating barber");
-		return error;
+		return utils.handleError(error);
 	}
 };
 

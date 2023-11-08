@@ -3,7 +3,7 @@ const config = require("config");
 const barberRouter = require("./routes/barber.route");
 const barberShopRouter = require("./routes/barbershop.route");
 const customerRouter = require("./routes/customer.route");
-const bookingRouter = require("./routes/booking.route.js");
+const bookingRouter = require("./routes/booking.route");
 const { logger, morganMiddleware } = require("./utils/logger");
 
 const PORT = config.PORT;
@@ -17,10 +17,7 @@ app.use((req, res, next) => {
 		"Origin, X-Requested-With, Content-Type, Accept, Authorization"
 	);
 	if (req.method === "OPTIONS") {
-		res.header(
-			"Access-Control-Allow-Methods",
-			"GET, POST, PUT, PATCH, DELETE"
-		);
+		res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 		return res.status(200).json({});
 	}
 	next();
@@ -28,12 +25,12 @@ app.use((req, res, next) => {
 
 app.use(express.json({ limit: "1mb" }));
 
-app.use("/api/barber", barberRouter);
-app.use("/api/shop", barberShopRouter);
-app.use("/api/customer", customerRouter);
-app.use("/api/booking", bookingRouter);
+app.use("/barber", barberRouter);
+app.use("/booking", bookingRouter);
+app.use("/customer", customerRouter);
+app.use("/shop", barberShopRouter);
 
-app.use("/", (req, res) => {
+app.use("/", (_req, res) => {
 	res.send("Server is working");
 });
 

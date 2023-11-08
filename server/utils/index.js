@@ -1,4 +1,4 @@
-const logger = require("./logger");
+const { logger } = require("./logger");
 const bcrypt = require("bcrypt");
 
 const prepareResponse = (data, statusCode, message) => {
@@ -9,10 +9,14 @@ const prepareResponse = (data, statusCode, message) => {
 	};
 };
 
-const handleError = (error) => {
-	logger.error("An error occurred" + error.message);
+const handleError = (error, statusCode, message) => {
+	logger.error("An error occurred " + error);
 
-	return prepareResponse(error, 500, "Internal Server Error");
+	return prepareResponse(
+		error,
+		statusCode,
+		message ?? "Internal Server Error"
+	);
 };
 
 const handleExceptions = (func, params) => {
@@ -26,19 +30,20 @@ const handleExceptions = (func, params) => {
 	}
 };
 
-const createHashPassword = async (password) => {
-	try {
-		const saltRounds = 10;
-		const hashedPassword = await bcrypt.hash(password, saltRounds);
-		return hashedPassword;
-	} catch (error) {
-		return error;
-	}
+const comparePasswords = (plainPassword, hashedPassword) => {
+	return bcrypt.compareSync(plainPassword, hashedPassword);
+};
+
+const hashPasssword = async (password) => {
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hashedPassword = bcrypt.hashSync(password, salt);
+	return { salt, password: hashedPassword };
 };
 
 module.exports = {
 	prepareResponse,
 	handleError,
 	handleExceptions,
-	createHashPassword,
+	hashPasssword,
+	comparePasswords,
 };
