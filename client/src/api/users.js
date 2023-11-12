@@ -1,20 +1,20 @@
 import axios from "axios";
 
+export const baseUrl = "http://localhost:5640";
+
+export const token = sessionStorage.getItem("token");
+
 export const registerUser = async (userData) => {
 	try {
-		const response = await axios.post(
-			"http://localhost:5640/api/customer/create",
-			userData,
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
+		const response = await axios.post(`${baseUrl}/customer/create`, userData, {
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: "Bearer " + token,
+			},
+		});
 
 		if (response.status === 200) {
-			console.log("Data:", response.data);
-			return response.data; // You might want to return the data or a specific response here
+			return response.data;
 		} else {
 			throw new Error("Failed to register user");
 		}
@@ -26,23 +26,20 @@ export const registerUser = async (userData) => {
 
 export const login = async (userData) => {
 	try {
-		const response = await axios.post(
-			"http://localhost:5640/customer/login",
-			userData,
-			{
-				headers: {
-					"Content-Type": "application/json",
-				},
-			}
-		);
+		const response = await axios.post(`${baseUrl}/customer/login`, userData, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
 
 		if (response.status === 200) {
+			const token = response.data.data.token;
+			sessionStorage.setItem("token", token);
 			return response.data;
 		} else {
-			throw new Error("Failed to register user");
+			throw new Error("Failed to login");
 		}
 	} catch (error) {
-		console.error("Error:", error);
-		throw error;
+		throw error.response.data;
 	}
 };

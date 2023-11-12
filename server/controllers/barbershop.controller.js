@@ -23,6 +23,18 @@ const getBarberShopById = async (barberId) => {
 	}
 };
 
+const getBarberList = async (shopId) => {
+	try {
+		const data = await barberShop.getBarberList(shopId);
+
+		if (data.length > 0) {
+			return utils.prepareResponse(data, 200, "success");
+		} else {
+			return utils.prepareResponse(null, 404, "No record found");
+		}
+	} catch (error) {}
+};
+
 const createBarbershop = async (data) => {
 	try {
 		const response = await barberShop.create(data);
@@ -73,4 +85,5 @@ module.exports = {
 	createBarbershop,
 	updateBarbershop,
 	deleteBarbershop,
+	getBarberList,
 };

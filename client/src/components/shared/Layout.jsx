@@ -4,10 +4,16 @@ import Footer from "./Footer";
 
 const Layout = ({ children }) => {
 	return (
-		<div className="w-full h-screen bg-white flex flex-col">
-			<Header />
-			<div className="h-full">{children}</div>
-			<Footer />
+		<div className="flex flex-col min-h-screen">
+			<div>
+				<Header />
+			</div>
+			<div className="flex-1 flex flex-col justify-start items-center m-10">
+				{children}
+			</div>
+			<div>
+				<Footer />
+			</div>
 		</div>
 	);
 };

@@ -2,38 +2,37 @@ import React, { useState } from "react";
 import Layout from "../components/shared/Layout";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../api/users";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../LoginProvider";
 
 const Login = () => {
+	const { handleLogin: handleLoginContext, isLoggedIn } = useLogin();
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
 
 	const navigate = useNavigate();
 
-	const {
-		mutateAsync: loginMutation,
-		data,
-		error,
-	} = useMutation({
+	const { mutateAsync: loginMutation, data: loginResponse } = useMutation({
 		mutationFn: login,
+		onSuccess: () => {
+			handleLoginContext();
+			console.log(isLoggedIn);
+			navigate("/barbershop");
+		},
 	});
 
 	const handleLogin = async () => {
 		try {
 			await loginMutation({ email, password });
-
-			if (data?.statusCode === 200) {
-				navigate("/barbershop");
-			}
 		} catch (error) {
-			console.log(error);
+			alert(error.message);
 		}
 	};
 
 	return (
 		<Layout>
-			<div className="flex min-h-full flex-col items-center justify-center">
-				<h1 className="font-bold text-2xl text-center leading-9 text-gray-900">
+			<div className="flex flex-col items-center justify-center">
+				<h1 className="font-bold text-4xl text-center leading-9 text-gray-900">
 					Login
 				</h1>
 				<div className="flex flex-col w-96 gap-4">
@@ -45,6 +44,7 @@ const Login = () => {
 							Email
 						</label>
 						<input
+							name="email"
 							type="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
@@ -73,6 +73,17 @@ const Login = () => {
 						>
 							Login
 						</button>
+					</div>
+					<div className="flex items-center flex-col">
+						<Link to="/register">
+							<p>
+								Dont have an account?{" "}
+								<span className="underline underline-offset-2 text-indigo-500 hover:cursor-pointer">
+									Register
+								</span>{" "}
+								here
+							</p>
+						</Link>
 					</div>
 				</div>
 			</div>

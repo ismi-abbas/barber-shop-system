@@ -7,6 +7,7 @@ const {
 	remove,
 	login,
 } = require("../models/customer.model");
+const c = require("config");
 
 const getAllCustomers = async () => {
 	try {
@@ -77,15 +78,17 @@ const customerLogin = async ({ email, password }) => {
 
 		if (response.length > 0) {
 			const data = response[0];
-			console.log(data);
 
 			if (utils.comparePasswords(password, data.password)) {
+				const token = await utils.generateJWTToken(data);
+
 				return utils.prepareResponse(
 					{
 						id: data.id,
 						name: data.name,
 						email: data.email,
 						phone: data.phone,
+						token: token,
 					},
 					200,
 					"success"

@@ -12,17 +12,28 @@ const Register = () => {
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [error, setError] = useState("");
 
 	const { mutateAsync: registerUserMutation } = useMutation({
 		mutationFn: registerUser,
 		onSuccess: () => {
-			queryClient.invalidateQueries();
 			navigate("/login");
 		},
 	});
 
 	const handleRegisterUser = async () => {
 		try {
+			if (!name || !password || !phone || !password) {
+				setError("Please input all fields");
+				return;
+			}
+
+			if (password !== confirmPassword) {
+				setError("Passwords did not match");
+				return;
+			}
+
 			await registerUserMutation({ name, email, phone, password });
 			setEmail("");
 			setName("");
@@ -50,6 +61,7 @@ const Register = () => {
 						</label>
 						<input
 							type="text"
+							name="name"
 							value={name}
 							onChange={(e) => setName(e.target.value)}
 							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
@@ -64,6 +76,7 @@ const Register = () => {
 							Email
 						</label>
 						<input
+							name="email"
 							type="email"
 							value={email}
 							onChange={(e) => setEmail(e.target.value)}
@@ -79,6 +92,7 @@ const Register = () => {
 							Phone
 						</label>
 						<input
+							name="phone"
 							value={phone}
 							onChange={(e) => setPhone(e.target.value)}
 							type="email"
@@ -94,12 +108,31 @@ const Register = () => {
 							Password
 						</label>
 						<input
+							name="password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
-							type="email"
+							type="password"
 							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
 						/>
 					</div>
+
+					<div className="flex flex-col gap-2">
+						<label
+							htmlFor="name"
+							className="block text-sm font-medium leading-6 text-gray-900"
+						>
+							Confirm Password
+						</label>
+						<input
+							type="password"
+							name="password"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+						/>
+					</div>
+
+					{error && <div className="text-red-500 text-sm">{error}</div>}
 
 					<div className="">
 						<button

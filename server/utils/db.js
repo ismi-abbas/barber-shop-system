@@ -22,7 +22,6 @@ const dbErrorHandler = () => {
 
 const connect = () => {
 	pool = mysql.createPool(dbConfig);
-	logger.info("Connecting to database");
 
 	pool.on("error", (err) => {
 		logger.error("DB Pool Error", err);
@@ -31,6 +30,7 @@ const connect = () => {
 };
 
 const executeQuery = (query, data) => {
+	logger.debug(query);
 	return new Promise((resolve, reject) => {
 		if (!pool) {
 			connect();
@@ -58,6 +58,8 @@ const executeQuery = (query, data) => {
 					dbErrorHandler(err);
 					reject(err);
 				}
+
+				logger.debug(results);
 
 				resolve(results);
 			});

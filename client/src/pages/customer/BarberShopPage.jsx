@@ -3,6 +3,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import Layout from "../../components/shared/Layout";
 import ClipLoader from "react-spinners/ClipLoader";
+import { getAllBarber } from "../../api/barbershop";
+import { Link } from "react-router-dom";
 
 const override = {
 	borderColor: "green",
@@ -10,15 +12,13 @@ const override = {
 };
 
 const BarberShopPage = () => {
-	let [color, setColor] = useState("#ffffff");
-
 	const {
 		data: barberShop,
 		isLoading,
 		isError,
 	} = useQuery({
 		queryKey: ["barbershop"],
-		queryFn: async () => await axios.get("http://localhost:5640/shop/"),
+		queryFn: getAllBarber,
 	});
 
 	return (
@@ -35,6 +35,10 @@ const BarberShopPage = () => {
 									color="white"
 									size={100}
 								/>
+							</div>
+						) : isError ? (
+							<div className="flex items-center justify-center text-red-500">
+								<p>No data found. An error occurred while fetching the data.</p>
 							</div>
 						) : (
 							barberShop?.data.data.map((shop) => (
@@ -55,6 +59,13 @@ const BarberShopPage = () => {
 											Fingerstache flexitarian street art 8-bit waistcoat.
 											Distillery hexagon disrupt edison bulbche.
 										</p>
+										<div className="flex mt-2 justify-end">
+											<Link to={`/shop-info/${shop.id}`}>
+												<button className="items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-300 rounded text-base mt-4 md:mt-0 text-white">
+													View Shop
+												</button>
+											</Link>
+										</div>
 									</div>
 								</div>
 							))

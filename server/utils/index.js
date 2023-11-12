@@ -1,5 +1,6 @@
 const { logger } = require("./logger");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const prepareResponse = (data, statusCode, message) => {
 	return {
@@ -35,9 +36,21 @@ const comparePasswords = (plainPassword, hashedPassword) => {
 };
 
 const hashPasssword = async (password) => {
-	const salt = bcrypt.genSaltSync(saltRounds);
-	const hashedPassword = bcrypt.hashSync(password, salt);
-	return { salt, password: hashedPassword };
+	const salt = bcrypt.genSaltSync(10);
+	return bcrypt.hashSync(password, salt);
+};
+
+const generateJWTToken = async (data) => {
+	return jwt.sign(
+		{
+			id: data.id,
+			name: data.name,
+			email: data.email,
+			phone: data.phone,
+		},
+		"abbashensem",
+		{ expiresIn: "1h" }
+	);
 };
 
 module.exports = {
@@ -46,4 +59,5 @@ module.exports = {
 	handleExceptions,
 	hashPasssword,
 	comparePasswords,
+	generateJWTToken,
 };

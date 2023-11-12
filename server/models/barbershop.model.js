@@ -100,10 +100,30 @@ const remove = async (barbershopId) => {
 	}
 };
 
+const getBarberList = async (barbershopId) => {
+	try {
+		const query = `
+		SELECT B.id, B.name, B.phone
+		FROM barber_shop.Barbershop BS
+				 INNER JOIN barber_shop.Barber B ON BS.id = B.barbershop_id
+		WHERE BS.id = ? and B.availability = ?`;
+		const data = [barbershopId, true];
+
+		const response = await executeQuery(query, data);
+
+		if (response) {
+			return response;
+		} else {
+			return "Error getting barberlist";
+		}
+	} catch (error) {}
+};
+
 module.exports = {
 	findAll,
 	findById,
 	create,
 	update,
 	remove,
+	getBarberList,
 };

@@ -5,6 +5,7 @@ const {
 	createBarbershop,
 	updateBarbershop,
 	deleteBarbershop,
+	getBarberList,
 } = require("../controllers/barbershop.controller");
 
 const barbershop = express.Router();
@@ -18,6 +19,12 @@ barbershop.get("/:id", async (req, res) => {
 	const { id } = req.params;
 	const data = await getBarberShopById(id);
 	res.status(data.statusCode).send(data);
+});
+
+barbershop.get("/barber/:id", async (req, res) => {
+	const { id } = req.params;
+	const response = await getBarberList(id);
+	res.status(response.statusCode).send(response);
 });
 
 barbershop.post("/create", async (req, res) => {

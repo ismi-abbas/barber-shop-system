@@ -1,14 +1,14 @@
 import React from "react";
-import Layout from "../../components/shared/Layout";
+import Layout from "../components/shared/Layout";
 
-const About = () => {
+const Features = () => {
 	return (
 		<Layout>
 			<div className="flex items-center justify-center text-4xl font-bold">
-				About
+				Features
 			</div>
 		</Layout>
 	);
 };
 
-export default About;
+export default Features;
