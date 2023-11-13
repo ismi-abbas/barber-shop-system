@@ -10,22 +10,22 @@ const Header = () => {
 				<div className="font-bold">
 					Is Logged In {isLoggedIn ? "Online" : "Offline"}
 				</div>
-				<a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 cursor-pointer">
+				<div className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 cursor-pointer">
 					<span className="ml-3 text-xl">
 						<Link to="/">BarberBook.co</Link>
 					</span>
-				</a>
+				</div>
 				<nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
 					{isLoggedIn ? <LoginNavbar /> : <Navbar />}
 				</nav>
 				<div className="flex flex-row gap-4">
 					{!isLoggedIn ? (
-						<Link to="/register">
-							<button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
-								Register
-							</button>
-						</Link>
-					) : null}
+						<button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
+							<Link to="/register">Register</Link>
+						</button>
+					) : (
+						<></>
+					)}
 
 					{isLoggedIn ? (
 						<button
@@ -53,6 +53,12 @@ const LoginNavbar = () => {
 			<Link className="mr-5 hover:text-gray-900" to="/barbershop">
 				Shop List
 			</Link>
+			<Link className="mr-5 hover:text-gray-900" to="/appointment">
+				Appointments
+			</Link>
+			<Link className="mr-5 hover:text-gray-900" to="/hair-shop">
+				Hair Shop
+			</Link>
 		</>
 	);
 };
@@ -74,9 +80,6 @@ const Navbar = () => {
 			</Link>
 			<Link className="mr-5 hover:text-gray-900" to="/book">
 				Book Now
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/barbershop">
-				Barbershop
 			</Link>
 		</>
 	);

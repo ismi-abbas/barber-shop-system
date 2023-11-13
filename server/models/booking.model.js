@@ -91,10 +91,41 @@ const remove = async (bookingId) => {
 	}
 };
 
+const findByCustomerId = async (customerId) => {
+	try {
+		const query = `SELECT B.id as booking_id,
+			customer_id,
+			B.barbershop_id,
+			B.barber_id,
+			C.name as customer_name,
+			BB.name as barber_name,
+			BS.name as shop_name,
+			BS.location,
+			B.date_time as booking_date
+			FROM Bookings B
+			  INNER JOIN Customer C on C.id = B.customer_id
+			  INNER JOIN Barber BB ON BB.id = B.barber_id
+			  INNER JOIN Barbershop BS ON BS.id = B.barbershop_id
+			WHERE customer_id = ?`;
+		const data = [customerId];
+
+		const response = await executeQuery(query, data);
+
+		if (response) {
+			return response;
+		} else {
+			return "Error getting customer bookings";
+		}
+	} catch (error) {
+		return error;
+	}
+};
+
 module.exports = {
 	findAll,
 	findById,
 	create,
 	update,
 	remove,
+	findByCustomerId,
 };

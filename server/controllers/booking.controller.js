@@ -57,10 +57,21 @@ const deleteBooking = async (barberId) => {
 	}
 };
 
+const getByCustomerId = async (customerId) => {
+	try {
+		const response = await booking.findByCustomerId(customerId);
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {}
+};
+
 module.exports = {
 	getAllBookings,
 	getBookingById,
 	createBooking,
 	updateBooking,
 	deleteBooking,
+	getByCustomerId,
 };

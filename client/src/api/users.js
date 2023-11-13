@@ -1,17 +1,8 @@
-import axios from "axios";
-
-export const baseUrl = "http://localhost:5640";
-
-export const token = sessionStorage.getItem("token");
+import apiClient from "./base";
 
 export const registerUser = async (userData) => {
 	try {
-		const response = await axios.post(`${baseUrl}/customer/create`, userData, {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		});
+		const response = await apiClient.post(`/customer/create`, userData);
 
 		if (response.status === 200) {
 			return response.data;
@@ -19,22 +10,18 @@ export const registerUser = async (userData) => {
 			throw new Error("Failed to register user");
 		}
 	} catch (error) {
-		console.error("Error:", error);
 		throw error;
 	}
 };
 
 export const login = async (userData) => {
 	try {
-		const response = await axios.post(`${baseUrl}/customer/login`, userData, {
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
+		const response = await apiClient.post(`/customer/login`, userData);
 
 		if (response.status === 200) {
-			const token = response.data.data.token;
-			sessionStorage.setItem("token", token);
+			const responseData = response.data.data;
+			sessionStorage.setItem("token", responseData.token);
+			sessionStorage.setItem("userId", responseData.id);
 			return response.data;
 		} else {
 			throw new Error("Failed to login");

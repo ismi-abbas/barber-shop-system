@@ -23,7 +23,7 @@ const BarberShopPage = () => {
 
 	return (
 		<Layout>
-			<div className="flex flex-col items-center p-10">
+			<div className="flex flex-col items-center px-10 sm:px-5 xs:px-0">
 				<h1 className="font-bold text-4xl">Barbershop List</h1>
 				<div className="flex flex-wrap gap-10 mt-4">
 					<div className="flex flex-wrap -m-4">
@@ -41,7 +41,7 @@ const BarberShopPage = () => {
 								<p>No data found. An error occurred while fetching the data.</p>
 							</div>
 						) : (
-							barberShop?.data.data.map((shop) => (
+							barberShop?.data.map((shop) => (
 								<div className="xl:w-1/4 md:w-1/2 p-4" key={shop.id}>
 									<div className="bg-gray-100 p-6 rounded-lg">
 										<img

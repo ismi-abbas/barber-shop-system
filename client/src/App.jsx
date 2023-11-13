@@ -13,6 +13,8 @@ import Features from "./pages/Features";
 import Reviews from "./pages/Reviews";
 import Contacts from "./pages/Contacts";
 import BarbershopInfo from "./pages/customer/BarbershopInfo";
+import BookingPage from "./pages/customer/BookingPage";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +23,7 @@ function App() {
 		<QueryClientProvider client={queryClient}>
 			<LoginProvider>
 				<Routes>
+					<Route path="*" element={<NotFound />} />
 					<Route path="/" element={<Home />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
@@ -30,15 +33,8 @@ function App() {
 					<Route path="/reviews" element={<Reviews />} />
 					<Route path="/contact" element={<Contacts />} />
 					<Route path="/shop-info/:id" element={<BarbershopInfo />} />
-
-					<Route
-						path="/book"
-						element={
-							<ProtectedRoute>
-								<Appointment />
-							</ProtectedRoute>
-						}
-					/>
+					<Route path="/appointment" element={<Appointment />} />
+					<Route path="/book-barber/:barberId" element={<BookingPage />} />
 				</Routes>
 			</LoginProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
