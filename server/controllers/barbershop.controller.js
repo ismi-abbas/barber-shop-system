@@ -32,7 +32,9 @@ const getBarberList = async (shopId) => {
 		} else {
 			return utils.prepareResponse(null, 404, "No record found");
 		}
-	} catch (error) {}
+	} catch (error) {
+		utils.handleError("Error getting barber info");
+	}
 };
 
 const createBarbershop = async (data) => {

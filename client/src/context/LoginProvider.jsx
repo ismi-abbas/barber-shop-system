@@ -1,8 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const LoginContext = createContext();
 
 export const LoginProvider = ({ children }) => {
+	const navigate = useNavigate();
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	useEffect(() => {
@@ -21,6 +23,7 @@ export const LoginProvider = ({ children }) => {
 	const handleLogout = () => {
 		setIsLoggedIn(false);
 		sessionStorage.clear();
+		navigate("/");
 	};
 
 	return (

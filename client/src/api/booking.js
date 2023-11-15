@@ -33,3 +33,31 @@ export const getUserBooking = async (userId) => {
 		throw error;
 	}
 };
+
+export const getAllAppointments = async (shopId) => {
+	try {
+		const response = await apiClient.get(`/manager/getBookings/${shopId}`);
+
+		if (response.status === 200) {
+			return response.data;
+		} else {
+			throw new Error("Failed getting user booking");
+		}
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const updateBooking = async (booking) => {
+	try {
+		const response = await apiClient.put(`/booking/update`, booking);
+
+		if (response.status === 200) {
+			return response.data;
+		} else {
+			throw new Error("Error approving user booking");
+		}
+	} catch (error) {
+		throw error;
+	}
+};

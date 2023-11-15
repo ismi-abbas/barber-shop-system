@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useLogin } from "./LoginProvider";
+import { useLogin } from "./context/LoginProvider";
 
 const ProtectedRoute = ({ children }) => {
 	const { isLoggedIn } = useLogin();

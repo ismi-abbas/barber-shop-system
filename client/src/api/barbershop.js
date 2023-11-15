@@ -1,6 +1,6 @@
 import apiClient from "./base";
 
-export const getAllBarber = async () => {
+export const getAllShop = async () => {
 	try {
 		const response = await apiClient.get("/shop");
 
@@ -37,6 +37,22 @@ export const getBarberList = async (shopId) => {
 			return response.data;
 		} else {
 			throw new Error("Failed getting shop barber");
+		}
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const getBarberService = async (barberId) => {};
+
+export const getAllBarbers = async () => {
+	try {
+		const response = await apiClient.get(`/barber`);
+
+		if (response.status === 200) {
+			return response.data;
+		} else {
+			throw new Error("Failed getting all");
 		}
 	} catch (error) {
 		throw error;

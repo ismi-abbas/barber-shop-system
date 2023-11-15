@@ -6,15 +6,16 @@ import BarberShopPage from "./pages/customer/BarberShopPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import About from "./pages/customer/About";
-import Appointment from "./pages/customer/Appointment";
+import Appointment from "./pages/barber/Appointment";
 import ProtectedRoute from "./protectedRoute";
-import { LoginProvider } from "./LoginProvider";
+import { LoginProvider } from "./context/LoginProvider";
 import Features from "./pages/Features";
 import Reviews from "./pages/Reviews";
 import Contacts from "./pages/Contacts";
 import BarbershopInfo from "./pages/customer/BarbershopInfo";
 import BookingPage from "./pages/customer/BookingPage";
 import NotFound from "./pages/NotFound";
+import ManagerLogin from "./pages/ManagerLogin";
 
 const queryClient = new QueryClient();
 
@@ -34,7 +35,9 @@ function App() {
 					<Route path="/contact" element={<Contacts />} />
 					<Route path="/shop-info/:id" element={<BarbershopInfo />} />
 					<Route path="/appointment" element={<Appointment />} />
+					<Route path="/book" element={<BookingPage />} />
 					<Route path="/book-barber/:barberId" element={<BookingPage />} />
+					<Route path="/login/manager" element={<ManagerLogin />} />
 				</Routes>
 			</LoginProvider>
 			<ReactQueryDevtools initialIsOpen={false} />

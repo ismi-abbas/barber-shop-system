@@ -1,22 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLogin } from "../../LoginProvider";
+import { useLogin } from "../../context/LoginProvider";
 
 const Header = () => {
 	const { isLoggedIn, handleLogout } = useLogin();
+	const isManager = sessionStorage.getItem("isManager");
+
 	return (
 		<header className="text-gray-600 body-font">
 			<div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-				<div className="font-bold">
-					Is Logged In {isLoggedIn ? "Online" : "Offline"}
-				</div>
 				<div className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 cursor-pointer">
 					<span className="ml-3 text-xl">
 						<Link to="/">BarberBook.co</Link>
 					</span>
 				</div>
 				<nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-					{isLoggedIn ? <LoginNavbar /> : <Navbar />}
+					{isLoggedIn ? (
+						isManager ? (
+							<ManagerNavbar />
+						) : (
+							<CustomerNavbar />
+						)
+					) : (
+						<Navbar />
+					)}
 				</nav>
 				<div className="flex flex-row gap-4">
 					{!isLoggedIn ? (
@@ -47,14 +54,11 @@ const Header = () => {
 	);
 };
 
-const LoginNavbar = () => {
+const CustomerNavbar = () => {
 	return (
 		<>
 			<Link className="mr-5 hover:text-gray-900" to="/barbershop">
 				Shop List
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/appointment">
-				Appointments
 			</Link>
 			<Link className="mr-5 hover:text-gray-900" to="/hair-shop">
 				Hair Shop
@@ -78,8 +82,15 @@ const Navbar = () => {
 			<Link className="mr-5 hover:text-gray-900" to="/contact">
 				Contact
 			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/book">
-				Book Now
+		</>
+	);
+};
+
+const ManagerNavbar = () => {
+	return (
+		<>
+			<Link className="mr-5 hover:text-gray-900" to="/appointment">
+				Appointments
 			</Link>
 		</>
 	);

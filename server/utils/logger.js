@@ -1,6 +1,6 @@
 const morgan = require("morgan");
 const { createLogger, format, transports } = require("winston");
-const { combine, timestamp, printf, colorize } = format;
+const { combine, printf } = format;
 
 const timestampFormat = format.timestamp({
 	format: "DD-MMM-YYYY HH:mm:ss.SSS",

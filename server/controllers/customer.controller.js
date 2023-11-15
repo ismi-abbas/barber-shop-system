@@ -1,13 +1,12 @@
 const utils = require("../utils");
 const {
 	findAll,
-	findById,
 	create,
 	update,
 	remove,
 	login,
 } = require("../models/customer.model");
-const c = require("config");
+const { findBookingByShopId } = require("../models/booking.model");
 
 const getAllCustomers = async () => {
 	try {
@@ -23,7 +22,7 @@ const getAllCustomers = async () => {
 
 const getCustomerById = async (barberId) => {
 	try {
-		const response = await findById(barberId);
+		const response = await findBookingByShopId(barberId);
 
 		if (response) {
 			return utils.prepareResponse(response, 200, "success");

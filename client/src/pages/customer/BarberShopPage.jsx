@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import Layout from "../../components/shared/Layout";
 import ClipLoader from "react-spinners/ClipLoader";
-import { getAllBarber } from "../../api/barbershop";
+import { getAllShop } from "../../api/barbershop";
 import { Link } from "react-router-dom";
 
 const override = {
@@ -18,7 +18,7 @@ const BarberShopPage = () => {
 		isError,
 	} = useQuery({
 		queryKey: ["barbershop"],
-		queryFn: getAllBarber,
+		queryFn: getAllShop,
 	});
 
 	return (
@@ -49,16 +49,12 @@ const BarberShopPage = () => {
 											src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=2240&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 											alt="content"
 										/>
-										<h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
+										<h3 className="tracking-wide text-indigo-500 text-sm font-medium">
 											{shop.location}
 										</h3>
 										<h2 className="text-lg text-gray-900 font-medium title-font mb-4">
 											{shop.name}
 										</h2>
-										<p className="leading-relaxed text-base">
-											Fingerstache flexitarian street art 8-bit waistcoat.
-											Distillery hexagon disrupt edison bulbche.
-										</p>
 										<div className="flex mt-2 justify-end">
 											<Link to={`/shop-info/${shop.id}`}>
 												<button className="items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-300 rounded text-base mt-4 md:mt-0 text-white">

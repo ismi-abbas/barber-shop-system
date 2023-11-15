@@ -41,7 +41,13 @@ const create = async ({ barberId, customerId, date_time }) => {
 	}
 };
 
-const update = async ({ bookingId, barberId, customerId, date_time }) => {
+const update = async ({
+	bookingId,
+	barberId,
+	customerId,
+	date_time,
+	status,
+}) => {
 	try {
 		let query = "UPDATE barber_shop.Bookings SET ";
 		const data = [];
@@ -57,6 +63,11 @@ const update = async ({ bookingId, barberId, customerId, date_time }) => {
 		if (date_time) {
 			query += "date_time = ?, ";
 			data.push(date_time);
+		}
+
+		if (status) {
+			query += "status = ?, ";
+			data.push(status);
 		}
 
 		query = query.slice(0, -2) + " WHERE id = ?";
@@ -121,6 +132,44 @@ const findByCustomerId = async (customerId) => {
 	}
 };
 
+const findBookingByShopId = async (shopId) => {
+	try {
+		const query = `
+		SELECT B.id,
+		B.customer_id,
+		B.barbershop_id,
+		B.date_time     as booking_date,
+		BS.name         as barbershop_name,
+		BS.location     as shop_location,
+		BB.name         as barber_name,
+		BB.phone        as barber_phone,
+		BB.availability as barbershop_availability,
+		C.name          as customer_name,
+		C.phone         as customer_phone,
+		C.email         as customer_email,
+		S.service_name,
+		B.status
+		FROM Bookings B
+			INNER JOIN Customer C ON B.customer_id = C.id
+        	INNER JOIN Barbershop BS ON B.barbershop_id = BS.id
+        	INNER JOIN Barber BB ON B.barber_id = BB.id
+        	INNER JOIN Services S ON S.id = B.service_id
+		WHERE B.barbershop_id = 1`;
+
+		const data = [shopId];
+
+		const response = await executeQuery(query, data);
+
+		if (response) {
+			return response;
+		} else {
+			return "Error getting customer bookings";
+		}
+	} catch (error) {
+		return error;
+	}
+};
+
 module.exports = {
 	findAll,
 	findById,
@@ -128,4 +177,5 @@ module.exports = {
 	update,
 	remove,
 	findByCustomerId,
+	findBookingByShopId,
 };

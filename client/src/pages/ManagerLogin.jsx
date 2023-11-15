@@ -5,14 +5,14 @@ import { login } from "../api/users";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../context/LoginProvider";
 
-const Login = () => {
+const ManagerLogin = () => {
 	const { handleLogin: handleLoginContext, isLoggedIn } = useLogin();
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
 
 	const navigate = useNavigate();
 
-	const { mutateAsync: loginMutation } = useMutation({
+	const { mutateAsync: loginMutation, data: loginResponse } = useMutation({
 		mutationFn: login,
 		onSuccess: () => {
 			handleLoginContext();
@@ -23,7 +23,7 @@ const Login = () => {
 
 	const handleLogin = async () => {
 		try {
-			await loginMutation({ email, password }, false);
+			await loginMutation({ email, password, isManager: true });
 		} catch (error) {
 			alert(error.message);
 		}
@@ -33,7 +33,7 @@ const Login = () => {
 		<Layout>
 			<div className="flex flex-col items-center justify-center">
 				<h1 className="font-semibold text-3xl text-center leading-9 text-gray-900">
-					Login
+					Manager Login
 				</h1>
 				<div className="flex flex-col w-96 gap-4">
 					<div className="flex flex-col gap-2">
@@ -66,19 +66,21 @@ const Login = () => {
 						/>
 					</div>
 
-					<div className="">
+					<div>
 						<button
 							onClick={() => handleLogin()}
 							className="w-full p-2 border bg-indigo-600 text-white tracking-wide rounded-lg text-center mt-2 hover:mouse-pointer"
 						>
-							Login
+							Login as Manager
 						</button>
 					</div>
-					<Link to="/login/manager">
-						<button className="w-full text-gray hover:text-indigo-500  tracking-wide text-center hover:mouse-pointer underline underline-offset-2">
-							Manager Login
+
+					<Link to="/login">
+						<button className="w-full hover:text-indigo-500 text-gray tracking-wide text-center hover:mouse-pointer underline underline-offset-2">
+							Normal Login
 						</button>
 					</Link>
+
 					<div className="flex items-center flex-col">
 						<Link to="/register">
 							<p>
@@ -96,4 +98,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default ManagerLogin;
