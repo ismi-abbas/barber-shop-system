@@ -4,7 +4,9 @@ import { useLogin } from "../../context/LoginProvider";
 
 const Header = () => {
 	const { isLoggedIn, handleLogout } = useLogin();
-	const isManager = sessionStorage.getItem("isManager");
+	const isManager = JSON.parse(sessionStorage.getItem("isManager"));
+
+	console.log({ isManager, isLoggedIn });
 
 	return (
 		<header className="text-gray-600 body-font">
@@ -16,7 +18,7 @@ const Header = () => {
 				</div>
 				<nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
 					{isLoggedIn ? (
-						isManager ? (
+						isManager == true ? (
 							<ManagerNavbar />
 						) : (
 							<CustomerNavbar />
@@ -25,6 +27,7 @@ const Header = () => {
 						<Navbar />
 					)}
 				</nav>
+
 				<div className="flex flex-row gap-4">
 					{!isLoggedIn ? (
 						<button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
@@ -63,6 +66,22 @@ const CustomerNavbar = () => {
 			<Link className="mr-5 hover:text-gray-900" to="/hair-shop">
 				Hair Shop
 			</Link>
+			<Link className="mr-5 hover:text-gray-900" to="/booking">
+				My Bookings
+			</Link>
+		</>
+	);
+};
+
+const ManagerNavbar = () => {
+	return (
+		<>
+			<Link className="mr-5 hover:text-gray-900" to="/appointment">
+				Appointments
+			</Link>
+			<Link className="mr-5 hover:text-gray-900" to="/appointment">
+				Manage Shop
+			</Link>
 		</>
 	);
 };
@@ -81,16 +100,6 @@ const Navbar = () => {
 			</Link>
 			<Link className="mr-5 hover:text-gray-900" to="/contact">
 				Contact
-			</Link>
-		</>
-	);
-};
-
-const ManagerNavbar = () => {
-	return (
-		<>
-			<Link className="mr-5 hover:text-gray-900" to="/appointment">
-				Appointments
 			</Link>
 		</>
 	);

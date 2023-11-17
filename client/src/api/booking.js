@@ -1,14 +1,26 @@
 import apiClient from "./base";
 
-export const addBooking = async ({ barberId, customerId, barbershopId }) => {
+export const addBooking = async ({
+	barberId,
+	customerId,
+	barbershopId,
+	serviceId,
+	date,
+	status,
+}) => {
 	const body = {
 		barberId,
 		customerId,
 		barbershopId,
-		status: "pending",
+		serviceId,
+		date,
+		status,
 	};
+
+	console.log(body);
+
 	try {
-		const response = await apiClient.post("/booking/add", body);
+		const response = await apiClient.post("/booking/create", body);
 
 		if (response.status === 200) {
 			return response.data;

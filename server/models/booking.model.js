@@ -23,11 +23,24 @@ const findById = async (id) => {
 	}
 };
 
-const create = async ({ barberId, customerId, date_time }) => {
+const create = async ({
+	barberId,
+	barbershopId,
+	customerId,
+	serviceId,
+	date,
+	status,
+}) => {
 	try {
-		const query =
-			"INSERT INTO barber_shop.Bookings (barber_id, customer_id, date_time) VALUES (?, ?, ?)";
-		const data = [barberId, customerId, date_time];
+		const query = `INSERT INTO Bookings (barber_id, customer_id, date_time, status, barbershop_id, service_id) VALUES (?, ?, ?, ?, ?, ?)`;
+		const data = [
+			barberId,
+			customerId,
+			new Date(date),
+			status,
+			barbershopId,
+			serviceId,
+		];
 
 		const response = await executeQuery(query, data);
 
@@ -112,7 +125,8 @@ const findByCustomerId = async (customerId) => {
 			BB.name as barber_name,
 			BS.name as shop_name,
 			BS.location,
-			B.date_time as booking_date
+			B.date_time as booking_date,
+			B.status
 			FROM Bookings B
 			  INNER JOIN Customer C on C.id = B.customer_id
 			  INNER JOIN Barber BB ON BB.id = B.barber_id
@@ -154,7 +168,7 @@ const findBookingByShopId = async (shopId) => {
         	INNER JOIN Barbershop BS ON B.barbershop_id = BS.id
         	INNER JOIN Barber BB ON B.barber_id = BB.id
         	INNER JOIN Services S ON S.id = B.service_id
-		WHERE B.barbershop_id = 1`;
+		WHERE B.barbershop_id = ?`;
 
 		const data = [shopId];
 

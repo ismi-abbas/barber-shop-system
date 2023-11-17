@@ -15,16 +15,17 @@ booking.get("/", async (_req, res) => {
 	res.status(200).send(data);
 });
 
-booking.post("/:id", async (req, res) => {
+booking.get("/:id", async (req, res) => {
 	const { id } = req.params;
 	const data = await getBookingById(id);
 	res.send(data);
 });
 
 booking.post("/create", async (req, res) => {
-	const { body } = req;
-	const data = await createBooking(body);
-	res.send(data);
+	const body = req.body;
+	const response = await createBooking(body);
+
+	res.status(response.statusCode).send(response);
 });
 
 booking.put("/update", async (req, res) => {
@@ -42,7 +43,6 @@ booking.delete("/:id", async (req, res) => {
 booking.get("/customer/:customerId", async (req, res) => {
 	const { customerId } = req.params;
 	const response = await getByCustomerId(customerId);
-	console.log(response);
 	res.status(response.statusCode).send(response);
 });
 

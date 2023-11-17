@@ -31,7 +31,7 @@ const Login = () => {
 
 	return (
 		<Layout>
-			<div className="flex flex-col items-center justify-center">
+			<div className="flex flex-col items-center justify-center border-2 border-gray-200 border-opacity-60 px-8 py-20 rounded-lg">
 				<h1 className="font-semibold text-3xl text-center leading-9 text-gray-900">
 					Login
 				</h1>

@@ -5,7 +5,6 @@ import { registerUser } from "../api/users";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 
 	const [name, setName] = useState("");

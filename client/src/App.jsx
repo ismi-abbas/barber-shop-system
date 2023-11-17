@@ -38,6 +38,7 @@ function App() {
 					<Route path="/book" element={<BookingPage />} />
 					<Route path="/book-barber/:barberId" element={<BookingPage />} />
 					<Route path="/login/manager" element={<ManagerLogin />} />
+					<Route path="/booking" element={<BookingPage />} />
 				</Routes>
 			</LoginProvider>
 			<ReactQueryDevtools initialIsOpen={false} />
