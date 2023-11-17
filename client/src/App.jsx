@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import About from "./pages/customer/About";
 import Appointment from "./pages/barber/Appointment";
-import ProtectedRoute from "./protectedRoute";
 import { LoginProvider } from "./context/LoginProvider";
 import Features from "./pages/Features";
 import Reviews from "./pages/Reviews";

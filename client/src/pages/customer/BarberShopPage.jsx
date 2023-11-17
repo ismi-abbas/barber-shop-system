@@ -1,6 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import React, { useState } from "react";
 import Layout from "../../components/shared/Layout";
 import ClipLoader from "react-spinners/ClipLoader";
 import { getAllShop } from "../../api/barbershop";
@@ -8,17 +6,17 @@ import { Link } from "react-router-dom";
 
 const override = {
 	borderColor: "green",
-	borderWidth: "4px",
+	borderWidth: "4px"
 };
 
 const BarberShopPage = () => {
 	const {
 		data: barberShop,
 		isLoading,
-		isError,
+		isError
 	} = useQuery({
 		queryKey: ["barbershop"],
-		queryFn: getAllShop,
+		queryFn: getAllShop
 	});
 
 	return (

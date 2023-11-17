@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { format } from "date-fns";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 export default function InfoModal({
 	title,
@@ -8,7 +8,7 @@ export default function InfoModal({
 	closeModal,
 	isOpen,
 	isConfirmed,
-	info,
+	info
 }) {
 	return (
 		<div>

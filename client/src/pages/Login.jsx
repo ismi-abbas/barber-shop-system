@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Layout from "../components/shared/Layout";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../api/users";
@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../context/LoginProvider";
 
 const Login = () => {
-	const { handleLogin: handleLoginContext, isLoggedIn } = useLogin();
+	const { handleLogin: handleLoginContext } = useLogin();
 	const [password, setPassword] = useState("");
 	const [email, setEmail] = useState("");
 

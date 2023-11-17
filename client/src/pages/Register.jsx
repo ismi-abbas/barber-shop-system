@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import Layout from "../components/shared/Layout";
 import { registerUser } from "../api/users";
 import { useNavigate } from "react-router-dom";

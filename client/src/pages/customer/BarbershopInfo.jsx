@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/shared/Layout";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -14,92 +14,92 @@ import InfoModal from "../../components/shared/InfoModal";
 const timeSlot = [
 	{
 		value: "09:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "09:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "10:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "10:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "11:00",
-		available: false,
+		available: false
 	},
 	{
 		value: "11:30",
-		available: false,
+		available: false
 	},
 	{
 		value: "12:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "12:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "14:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "14:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "15:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "15:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "16:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "16:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "17:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "17:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "18:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "18:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "20:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "20:30",
-		available: true,
+		available: true
 	},
 	{
 		value: "21:00",
-		available: true,
+		available: true
 	},
 	{
 		value: "21:30",
-		available: true,
-	},
+		available: true
+	}
 ];
 
 const BarbershopInfo = () => {
@@ -128,33 +128,33 @@ const BarbershopInfo = () => {
 
 	const { data: shopInfo } = useQuery({
 		queryKey: ["shopInfo", shopId],
-		queryFn: () => getBarberShopInfo(shopId),
+		queryFn: () => getBarberShopInfo(shopId)
 	});
 
 	const { data: barberList } = useQuery({
 		queryKey: ["shopBarberList", shopId],
-		queryFn: () => getBarberList(shopId),
+		queryFn: () => getBarberList(shopId)
 	});
 
 	const { data: allServices } = useQuery({
 		queryFn: getServices,
 		queryKey: ["allServices", shopId],
-		onError: (err) => console.error("Error fetching services:", err),
+		onError: (err) => console.error("Error fetching services:", err)
 	});
 
 	const { mutateAsync: createBooking } = useMutation({
 		mutationFn: addBooking,
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ["userBooking", "bookingList"],
+				queryKey: ["userBooking", "bookingList"]
 			});
 			navigate("/booking");
-		},
+		}
 	});
 
 	const { data: bookingList, refetch: refetchBookingList } = useQuery({
 		queryKey: ["bookingList", shopId, date, date.toISOString()],
-		queryFn: () => getAllAppointments(shopId),
+		queryFn: () => getAllAppointments(shopId)
 	});
 
 	const handleTimeSelection = (time) => {
@@ -267,7 +267,7 @@ const BarbershopInfo = () => {
 								date: dateTime,
 								serviceName: service?.service_name,
 								price: service?.price,
-								barberName: selectedBarber?.name,
+								barberName: selectedBarber?.name
 							}}
 							isConfirmed={() =>
 								createBooking({
@@ -276,7 +276,7 @@ const BarbershopInfo = () => {
 									customerId: userId,
 									date: dateTime,
 									serviceId: service.id,
-									status: "pending",
+									status: "pending"
 								})
 							}
 						/>
@@ -319,7 +319,7 @@ function SelectService({ services, service, setService }) {
 								} relative flex cursor-pointer rounded-lg px-5 py-4 focus:outline-none`
 							}
 						>
-							{({ checked, active }) => (
+							{({ checked }) => (
 								<>
 									<div className="flex w-full items-center justify-between">
 										<div className="flex items-center">
@@ -358,7 +358,7 @@ function TimeSlot({
 	selectedDate,
 	setSelectedTime,
 	timeSlot,
-	bookingList,
+	bookingList
 }) {
 	const isTimeSlotAvailable = (time, bookings) => {
 		if (!bookings) {
@@ -452,9 +452,5 @@ function TimeSlot({
 		</Listbox>
 	);
 }
-
-const ConfirmModal = () => {
-	return <></>;
-};
 
 export default BarbershopInfo;

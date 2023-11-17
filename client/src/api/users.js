@@ -1,16 +1,12 @@
 import apiClient from "./base";
 
 export const registerUser = async (userData) => {
-	try {
-		const response = await apiClient.post(`/customer/create`, userData);
+	const response = await apiClient.post(`/customer/create`, userData);
 
-		if (response.status === 200) {
-			return response.data;
-		} else {
-			throw new Error("Failed to register user");
-		}
-	} catch (error) {
-		throw error;
+	if (response.status === 200) {
+		return response.data;
+	} else {
+		throw new Error("Failed to register user");
 	}
 };
 
@@ -28,9 +24,10 @@ export const login = async (userData) => {
 			const responseData = response.data.data;
 			sessionStorage.setItem("token", responseData.token);
 			sessionStorage.setItem("userId", responseData.id);
+			sessionStorage.setItem("shopId", responseData.barbershop_id);
 			sessionStorage.setItem(
 				"isManager",
-				responseData.barbershop_id ? true : false
+				(!!responseData.barbershop_id).toString()
 			);
 			return response.data;
 		} else {

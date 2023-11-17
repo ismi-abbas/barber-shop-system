@@ -1,11 +1,12 @@
-import React from "react";
 import Layout from "../components/shared/Layout";
 
 const BarberBookReviews = () => {
 	return (
 		<Layout>
 			<div className="flex flex-col items-center justify-center">
-				<h1 className="text-2xl font-medium">Customer Reviews</h1>
+				<h1 className="sm:text-3xl text-2xl font-medium text-gray-900 mb-4">
+					Customer Reviews
+				</h1>
 				<section className="text-gray-600 body-font">
 					<div className="container px-5 py-24 mx-auto">
 						<div className="flex flex-wrap -m-4">
@@ -17,9 +18,10 @@ const BarberBookReviews = () => {
 										src="https://dummyimage.com/302x302"
 									/>
 									<p className="leading-relaxed">
-										"BarberBook.co made grooming convenient and enjoyable for
+										&quot;BarberBook.co made grooming convenient and enjoyable
+										for BarberBook.co made grooming convenient and enjoyable for
 										me. The barbers are skilled, and the atmosphere is
-										welcoming. I always leave satisfied with my haircut."
+										welcoming. I always leave satisfied with my haircut.&quot;
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
@@ -36,9 +38,9 @@ const BarberBookReviews = () => {
 										src="https://dummyimage.com/300x300"
 									/>
 									<p className="leading-relaxed">
-										"I've been using BarberBook.co for a year now, and I've
-										never been disappointed. The app is user-friendly, and the
-										barbers are professional. Highly recommend!"
+										&quot;I&apos;ve been using BarberBook.co for a year now, and
+										I&apos;ve never been disappointed. The app is user-friendly,
+										and the barbers are professional. Highly recommend!&quot;
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
@@ -55,9 +57,9 @@ const BarberBookReviews = () => {
 										src="https://dummyimage.com/305x305"
 									/>
 									<p className="leading-relaxed">
-										"BarberBook.co has revolutionized my grooming routine. Easy
-										booking, great service, and the barbers pay attention to
-										detail. Best grooming platform!"
+										&quot;BarberBook.co has revolutionized my grooming routine.
+										Easy booking, great service, and the barbers pay attention
+										to detail. Best grooming platform!&quot;
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">

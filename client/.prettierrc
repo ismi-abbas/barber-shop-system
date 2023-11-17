@@ -1,4 +1,7 @@
 {
 	"arrowParens": "always",
-	"useTabs": true
+	"useTabs": true,
+	"trailingComma": "none",
+	"singleQuote": false,
+	"jsxSingleQuote": false
 }

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Layout from "../../components/shared/Layout";
-import { useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addBooking, getUserBooking, updateBooking } from "../../api/booking";
+import { getUserBooking, updateBooking } from "../../api/booking";
 import { format } from "date-fns";
 import ActionModal from "../../components/shared/ActionModal";
 
@@ -12,22 +11,22 @@ const BookingPage = () => {
 	const [bookingId, selectedBookingId] = useState();
 	const queryClient = useQueryClient();
 
-	const { mutateAsync: updateBookingMutation } = useMutation({
+	const { mutate: updateBookingMutation } = useMutation({
 		mutationFn: updateBooking,
 		onSuccess: queryClient.invalidateQueries({
-			queryKey: ["userBooking", userId],
-		}),
+			queryKey: ["userBooking", userId]
+		})
 	});
 
 	const { data: bookingInfo } = useQuery({
 		queryKey: ["userBooking", userId],
-		queryFn: () => getUserBooking(userId),
+		queryFn: () => getUserBooking(userId)
 	});
 
 	const handleCancelBooking = () => {
 		updateBookingMutation({
 			status: "cancelled",
-			bookingId: bookingId,
+			bookingId: bookingId
 		});
 		openModal(false);
 	};
@@ -51,7 +50,7 @@ const BookingPage = () => {
 							booking_date,
 							price,
 							status,
-							service_name,
+							service_name
 						}) => {
 							return (
 								<div

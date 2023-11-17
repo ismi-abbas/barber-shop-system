@@ -6,6 +6,7 @@ const customerRouter = require("./routes/customer.route");
 const bookingRouter = require("./routes/booking.route");
 const managerRouter = require("./routes/manager.route");
 const serviceRouter = require("./routes/service.route");
+const salesRouter = require("./routes/sales.route");
 const { logger, morganMiddleware } = require("./utils/logger");
 
 const PORT = config.PORT;
@@ -33,6 +34,7 @@ app.use("/customer", customerRouter);
 app.use("/shop", barberShopRouter);
 app.use("/manager", managerRouter);
 app.use("/service", serviceRouter);
+app.use("/sales", salesRouter);
 
 app.use("/", (_req, res) => {
 	res.send("Server is working");

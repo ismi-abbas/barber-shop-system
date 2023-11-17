@@ -1,4 +1,3 @@
-import React from "react";
 import Layout from "../components/shared/Layout";
 import { Link } from "react-router-dom";
 
@@ -21,7 +20,7 @@ const Home = () => {
 							<p className="mb-8 leading-relaxed">
 								Embark on a grooming experience like never before. BarberBook.co
 								brings you a seamless platform to book your favorite barber with
-								ease. From trendy haircuts to classic styles, we're here to
+								ease. From trendy haircuts to classic styles, we&apos;re here to
 								transform your look and enhance your confidence.
 							</p>
 							<div className="flex justify-center">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Layout from "../components/shared/Layout";
 
 const Contacts = () => {
@@ -10,7 +10,7 @@ const Contacts = () => {
 		console.log({
 			name,
 			email,
-			message,
+			message
 		});
 	};
 
