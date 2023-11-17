@@ -39,7 +39,7 @@ const updateBooking = async (data) => {
 			return utils.prepareResponse(response, 200, "success");
 		}
 	} catch (error) {
-		utils.handleError("Error updating barber");
+		utils.handleError("Error updating booking");
 		return error;
 	}
 };

@@ -116,7 +116,41 @@ const getBarberList = async (barbershopId) => {
 		} else {
 			return "Error getting barberlist";
 		}
-	} catch (error) {}
+	} catch (error) {
+		throw error;
+	}
+};
+
+const uploadImage = async (originalName, buffer) => {
+	try {
+		const query = `INSERT INTO Images (name, data) VALUES (?, ?)`;
+		const data = [originalName, buffer];
+
+		const response = await executeQuery(query, data);
+		if (response) {
+			return response;
+		} else {
+			return "Error getting barberlist";
+		}
+	} catch (error) {
+		throw error;
+	}
+};
+
+const getImage = async (imageId) => {
+	try {
+		const query = "SELECT * FROM Images WHERE id = ?";
+		const data = [imageId];
+
+		const response = await executeQuery(query, data);
+		if (response) {
+			return response;
+		} else {
+			return "Error getting barberlist";
+		}
+	} catch (error) {
+		throw error;
+	}
 };
 
 module.exports = {
@@ -126,4 +160,6 @@ module.exports = {
 	update,
 	remove,
 	getBarberList,
+	uploadImage,
+	getImage,
 };

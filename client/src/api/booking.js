@@ -60,9 +60,10 @@ export const getAllAppointments = async (shopId) => {
 	}
 };
 
-export const updateBooking = async (booking) => {
+export const updateBooking = async (data) => {
+	console.log(data);
 	try {
-		const response = await apiClient.put(`/booking/update`, booking);
+		const response = await apiClient.put("booking/update", data);
 
 		if (response.status === 200) {
 			return response.data;

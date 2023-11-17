@@ -62,7 +62,7 @@ const update = async ({
 	status,
 }) => {
 	try {
-		let query = "UPDATE barber_shop.Bookings SET ";
+		let query = "UPDATE Bookings SET ";
 		const data = [];
 
 		if (barberId) {
@@ -126,11 +126,14 @@ const findByCustomerId = async (customerId) => {
 			BS.name as shop_name,
 			BS.location,
 			B.date_time as booking_date,
-			B.status
+			B.status,
+			S.price,
+			S.service_name
 			FROM Bookings B
 			  INNER JOIN Customer C on C.id = B.customer_id
 			  INNER JOIN Barber BB ON BB.id = B.barber_id
 			  INNER JOIN Barbershop BS ON BS.id = B.barbershop_id
+			  INNER JOIN Services S on S.id = B.service_id
 			WHERE customer_id = ?`;
 		const data = [customerId];
 

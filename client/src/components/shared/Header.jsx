@@ -6,8 +6,6 @@ const Header = () => {
 	const { isLoggedIn, handleLogout } = useLogin();
 	const isManager = JSON.parse(sessionStorage.getItem("isManager"));
 
-	console.log({ isManager, isLoggedIn });
-
 	return (
 		<header className="text-gray-600 body-font">
 			<div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -67,7 +65,7 @@ const CustomerNavbar = () => {
 				Hair Shop
 			</Link>
 			<Link className="mr-5 hover:text-gray-900" to="/booking">
-				My Bookings
+				Bookings
 			</Link>
 		</>
 	);

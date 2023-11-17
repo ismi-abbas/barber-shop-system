@@ -9,6 +9,7 @@ import { Calendar } from "react-calendar";
 import { getServices } from "../../api/services";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { format } from "date-fns";
+import InfoModal from "../../components/shared/InfoModal";
 
 const timeSlot = [
 	{
@@ -112,7 +113,6 @@ const BarbershopInfo = () => {
 	const [time, setTime] = useState(timeSlot[0]);
 	const [dateTime, setDateTime] = useState(new Date().toISOString());
 	const [service, setService] = useState();
-	const [combinedDateTime, setCombinedDateTime] = useState(null);
 
 	function closeModal() {
 		setIsOpen(false);
@@ -163,7 +163,7 @@ const BarbershopInfo = () => {
 			const combined = new Date(date);
 			const [hours, minutes] = time.value.split(":").map(Number);
 			combined.setHours(hours, minutes);
-			setCombinedDateTime(combined);
+			setDateTime(combined);
 		}
 	};
 
@@ -172,11 +172,18 @@ const BarbershopInfo = () => {
 		refetchBookingList();
 	};
 
+	const cancelBooking = () => {
+		setSelectBarber(null);
+		setDate(new Date());
+		setTime(timeSlot[0]);
+		setDateTime(new Date().toISOString());
+		setService(null);
+	};
+
 	return (
 		<Layout>
 			<section className="w-full flex-col lg:px-20">
-				<b>{format(new Date(combinedDateTime), "dd-MMM-yyyy hh:mm aa")}</b>
-				<div className="mt-4 lg:grid lg:grid-cols-3 items-start flex">
+				<div className="lg:grid lg:grid-cols-3 items-start flex">
 					<div className="flex flex-col col-span-3">
 						<h1 className="font-semibold text-3xl text-gray-900">
 							{shopInfo?.data[0].name}
@@ -201,29 +208,24 @@ const BarbershopInfo = () => {
 								<div className="flex flex-col gap-2">
 									{barberList?.data.map((barber) => (
 										<div
+											onClick={() => handleSelectBarber(barber)}
 											key={barber.id}
-											className={`flex justify-between items-center border rounded-lg p-2 mr-3 ${
+											className={`flex justify-between items-center border rounded-lg p-3 mr-3 hover:cursor-pointer hover:ring-2 hover:ring-inset hover:ring-indigo-600 ${
 												selectedBarber === barber
 													? "ring-indigo-500 ring-2 ring-inset"
 													: ""
 											}`}
 										>
-											<div className="text-base text-gray-900">
+											<div className="text-base text-gray-900 font-medium">
 												{barber.name}
 											</div>
-											<button
-												onClick={() => handleSelectBarber(barber)}
-												className="inline-flex items-center bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded-md text-sm mt-4 md:mt-0 text-white"
-											>
-												Select
-											</button>
 										</div>
 									))}
 								</div>
 							</div>
 						</div>
 					</div>
-					<div className="col-span-1 mt-4 ml-2">
+					<div className="col-span-1 mt-4">
 						<Calendar onChange={handleDateChange} value={date} />
 						<div>
 							<div className="mt-2">
@@ -240,7 +242,7 @@ const BarbershopInfo = () => {
 							</div>
 						</div>
 					</div>
-					<div className="mt-2 col-span-2 mx-4">
+					<div className="mt-2 col-span-2 mr-4">
 						<h3 className="text-lg font-medium text-gray-900">
 							Select Service
 						</h3>
@@ -254,27 +256,41 @@ const BarbershopInfo = () => {
 							<></>
 						)}
 					</div>
-					<div
-						onClick={() => alert("Confirm")}
-						className="col-span-1 mt-4 flex justify-end gap-2"
-					>
-						<button
-							onClick={() =>
+					<div className="col-span-1 mt-4 flex justify-end gap-2">
+						<InfoModal
+							closeModal={closeModal}
+							openModal={openModal}
+							description="Kindly check all the info before continuing"
+							title="Confirm booking"
+							isOpen={isOpen}
+							info={{
+								date: dateTime,
+								serviceName: service?.service_name,
+								price: service?.price,
+								barberName: selectedBarber?.name,
+							}}
+							isConfirmed={() =>
 								createBooking({
 									barberId: selectedBarber.id,
 									barbershopId: shopId,
 									customerId: userId,
-									date: combinedDateTime,
+									date: dateTime,
 									serviceId: service.id,
 									status: "pending",
 								})
 							}
+						/>
+						<button
+							onClick={() => openModal()}
 							className="inline-flex items-center bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded-md text-sm mt-4 md:mt-0 text-white"
 						>
 							Confirm
 						</button>
 
-						<button className="inline-flex items-center bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded-md text-sm mt-4 md:mt-0 text-white">
+						<button
+							onClick={() => cancelBooking()}
+							className="inline-flex items-center bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded-md text-sm mt-4 md:mt-0 text-white"
+						>
 							Cancel
 						</button>
 					</div>
@@ -303,7 +319,7 @@ function SelectService({ services, service, setService }) {
 								} relative flex cursor-pointer rounded-lg px-5 py-4 focus:outline-none`
 							}
 						>
-							{({ checked }) => (
+							{({ checked, active }) => (
 								<>
 									<div className="flex w-full items-center justify-between">
 										<div className="flex items-center">
@@ -356,8 +372,6 @@ function TimeSlot({
 		const endTime = new Date(selectedDateTime);
 		endTime.setMinutes(endTime.getMinutes() + 30);
 
-		console.log({ endTime });
-
 		for (const booking of bookings) {
 			const bookingStart = new Date(booking.booking_date);
 			const bookingEnd = new Date(booking.booking_date);
@@ -398,7 +412,14 @@ function TimeSlot({
 					<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white border  py-1 text-base ring-1 ring-black/5 focus:outline-none sm:text-sm">
 						{timeSlot.map((slot, idx) => (
 							<Listbox.Option
-								disabled={!isTimeSlotAvailable(slot, bookingList?.data)}
+								disabled={
+									!isTimeSlotAvailable(
+										slot,
+										bookingList?.data?.filter(
+											(booking) => booking.status !== "cancelled"
+										)
+									)
+								}
 								key={idx}
 								className={({ active, disabled }) =>
 									`relative cursor-default select-none py-2 pl-10 pr-4 ${

@@ -6,7 +6,13 @@ const {
 	updateBarbershop,
 	deleteBarbershop,
 	getBarberList,
+	uploadImage,
+	getImage,
 } = require("../controllers/barbershop.controller");
+const multer = require("multer");
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const barbershop = express.Router();
 
@@ -43,6 +49,30 @@ barbershop.delete("/:id", async (req, res) => {
 	const { id } = req.params;
 	const response = await deleteBarbershop(id);
 	res.send(response);
+});
+
+barbershop.post(
+	"/upload/:barbershopId",
+	upload.single("image"),
+	async (req, res) => {
+		const { buffer, originalname } = req.file;
+
+		const response = await uploadImage(originalname, buffer);
+
+		res.send(response);
+	}
+);
+
+barbershop.get("/image/:imageId", async (req, res) => {
+	const { imageId } = req.params;
+	const response = await getImage(imageId);
+
+	const imageData = response.data[0].data;
+
+	res.writeHead(response.statusCode, {
+		"Content-Type": "image/jpeg", // Change this based on your image type
+		"Content-Length": imageData.length,
+	}).end(imageData);
 });
 
 module.exports = barbershop;

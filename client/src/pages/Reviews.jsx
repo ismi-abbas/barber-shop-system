@@ -1,11 +1,11 @@
 import React from "react";
 import Layout from "../components/shared/Layout";
 
-const Reviews = () => {
+const BarberBookReviews = () => {
 	return (
 		<Layout>
 			<div className="flex flex-col items-center justify-center">
-				<h1 className="text-4xl font-bold">Reviews</h1>
+				<h1 className="text-2xl font-medium">Customer Reviews</h1>
 				<section className="text-gray-600 body-font">
 					<div className="container px-5 py-24 mx-auto">
 						<div className="flex flex-wrap -m-4">
@@ -17,16 +17,15 @@ const Reviews = () => {
 										src="https://dummyimage.com/302x302"
 									/>
 									<p className="leading-relaxed">
-										Edison bulb retro cloud bread echo park, helvetica stumptown
-										taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin
-										coffee ennui shaman taiyaki vape DIY tote bag drinking
-										vinegar cronut adaptogen squid fanny pack vaporware.
+										"BarberBook.co made grooming convenient and enjoyable for
+										me. The barbers are skilled, and the atmosphere is
+										welcoming. I always leave satisfied with my haircut."
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-										HOLDEN CAULFIELD
+										John Doe
 									</h2>
-									<p className="text-gray-500">Senior Product Designer</p>
+									<p className="text-gray-500">Satisfied Customer</p>
 								</div>
 							</div>
 							<div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
@@ -37,16 +36,15 @@ const Reviews = () => {
 										src="https://dummyimage.com/300x300"
 									/>
 									<p className="leading-relaxed">
-										Edison bulb retro cloud bread echo park, helvetica stumptown
-										taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin
-										coffee ennui shaman taiyaki vape DIY tote bag drinking
-										vinegar cronut adaptogen squid fanny pack vaporware.
+										"I've been using BarberBook.co for a year now, and I've
+										never been disappointed. The app is user-friendly, and the
+										barbers are professional. Highly recommend!"
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-										ALPER KAMU
+										Jane Smith
 									</h2>
-									<p className="text-gray-500">UI Develeoper</p>
+									<p className="text-gray-500">Regular Client</p>
 								</div>
 							</div>
 							<div className="lg:w-1/3 lg:mb-0 p-4">
@@ -57,16 +55,15 @@ const Reviews = () => {
 										src="https://dummyimage.com/305x305"
 									/>
 									<p className="leading-relaxed">
-										Edison bulb retro cloud bread echo park, helvetica stumptown
-										taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin
-										coffee ennui shaman taiyaki vape DIY tote bag drinking
-										vinegar cronut adaptogen squid fanny pack vaporware.
+										"BarberBook.co has revolutionized my grooming routine. Easy
+										booking, great service, and the barbers pay attention to
+										detail. Best grooming platform!"
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-										HENRY LETHAM
+										Michael Johnson
 									</h2>
-									<p className="text-gray-500">CTO</p>
+									<p className="text-gray-500">Happy Customer</p>
 								</div>
 							</div>
 						</div>
@@ -77,4 +74,4 @@ const Reviews = () => {
 	);
 };
 
-export default Reviews;
+export default BarberBookReviews;

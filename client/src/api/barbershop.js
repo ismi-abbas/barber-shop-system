@@ -33,7 +33,6 @@ export const getBarberList = async (shopId) => {
 		const response = await apiClient.get(`/shop/barber/${shopId}`);
 
 		if (response.status === 200) {
-			console.log("responseData", response.data);
 			return response.data;
 		} else {
 			throw new Error("Failed getting shop barber");

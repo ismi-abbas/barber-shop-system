@@ -1,5 +1,6 @@
 const barberShop = require("../models/barbershop.model");
 const utils = require("../utils");
+const { logger } = require("../utils/logger");
 
 const getAllBarbershop = async () => {
 	try {
@@ -81,6 +82,30 @@ const deleteBarbershop = async (barberId) => {
 	}
 };
 
+const uploadImage = async (originalName, buffer) => {
+	try {
+		const response = await barberShop.uploadImage(originalName, buffer);
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting barber");
+		return error;
+	}
+};
+
+const getImage = async (imageId) => {
+	try {
+		const response = await barberShop.getImage(imageId);
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting barber");
+		return error;
+	}
+};
+
 module.exports = {
 	getAllBarbershop,
 	getBarberShopById,
@@ -88,4 +113,6 @@ module.exports = {
 	updateBarbershop,
 	deleteBarbershop,
 	getBarberList,
+	uploadImage,
+	getImage,
 };

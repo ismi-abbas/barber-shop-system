@@ -15,8 +15,6 @@ export const registerUser = async (userData) => {
 };
 
 export const login = async (userData) => {
-	console.log(userData);
-
 	try {
 		let url = `/customer/login`;
 

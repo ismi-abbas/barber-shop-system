@@ -30,7 +30,6 @@ const connect = () => {
 };
 
 const executeQuery = (query, data) => {
-	logger.debug(query);
 	return new Promise((resolve, reject) => {
 		if (!pool) {
 			connect();

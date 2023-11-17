@@ -16,7 +16,6 @@ const Login = () => {
 		mutationFn: login,
 		onSuccess: () => {
 			handleLoginContext();
-			console.log(isLoggedIn);
 			navigate("/barbershop");
 		},
 	});

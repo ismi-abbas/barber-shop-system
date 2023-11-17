@@ -9,8 +9,6 @@ const managerLogin = async ({ email, password }) => {
 		if (response.length > 0) {
 			const data = response[0];
 
-			console.log({ data });
-
 			if (utils.comparePasswords(password, data.password)) {
 				const token = await utils.generateJWTToken(data);
 
