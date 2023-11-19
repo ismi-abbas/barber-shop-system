@@ -69,10 +69,24 @@ const deleteBarber = async (barberId) => {
 	}
 };
 
+const getByShopId = async (shopId) => {
+	try {
+		const response = await barberModel.findByShopId(shopId);
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error getting shopId");
+		return error;
+	}
+};
+
 module.exports = {
 	getAll,
 	getById,
 	createBarber,
 	updateBarber,
 	deleteBarber,
+	getByShopId,
 };

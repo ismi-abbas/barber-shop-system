@@ -17,7 +17,7 @@ const ManagerLogin = () => {
 		mutationKey: ["login"],
 		onSuccess: () => {
 			handleLoginContext();
-			navigate("/barbershop");
+			navigate("/appointment");
 		}
 	});
 

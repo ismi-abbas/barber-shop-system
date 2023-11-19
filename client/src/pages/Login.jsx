@@ -17,12 +17,12 @@ const Login = () => {
 		onSuccess: () => {
 			handleLoginContext();
 			navigate("/barbershop");
-		},
+		}
 	});
 
 	const handleLogin = async () => {
 		try {
-			await loginMutation({ email, password }, false);
+			loginMutation({ email, password }, false);
 		} catch (error) {
 			alert(error.message);
 		}

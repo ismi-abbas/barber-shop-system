@@ -5,9 +5,7 @@ const getAllSales = async () => {
 	try {
 		const response = await salesModel.findAll();
 
-		if (response) {
-			return utils.prepareResponse(response, 200, "success");
-		}
+		return utils.prepareResponse(response, 200, "success");
 	} catch (error) {
 		return utils.handleError(error, 500);
 	}
@@ -16,11 +14,42 @@ const getAllSales = async () => {
 const addToSales = async (data) => {
 	try {
 		const response = await salesModel.addOrder(data);
-		if (response) {
-			return utils.prepareResponse(response, 200, "success");
-		} else if (response === "Order existed") {
+
+		if (response === "Order existed") {
 			return utils.prepareResponse(response, 400, "failed");
 		}
+		return utils.prepareResponse(response, 200, "success");
+	} catch (error) {
+		return utils.handleError(error, 500);
+	}
+};
+
+const getRevenue = async (type) => {
+	try {
+		const response = await salesModel.getRevenue(type);
+
+		console.log(response);
+
+		return utils.prepareResponse(response, 200, "success");
+	} catch (error) {}
+};
+
+const getByBookingId = async (bookingId) => {
+	try {
+		const response = await salesModel.findByBookingId(bookingId);
+
+		return utils.prepareResponse(response, 200, "success");
+	} catch (error) {
+		return utils.handleError(error, 500);
+	}
+};
+
+const updateSale = async (salesId, paymentStatus) => {
+	try {
+		const response = await salesModel.update(salesId, paymentStatus);
+		console.log(response);
+
+		return utils.prepareResponse(response, 200, "success");
 	} catch (error) {
 		return utils.handleError(error, 500);
 	}
@@ -29,4 +58,7 @@ const addToSales = async (data) => {
 module.exports = {
 	addToSales,
 	getAllSales,
+	getRevenue,
+	getByBookingId,
+	updateSale,
 };

@@ -28,6 +28,22 @@ const findById = async (id) => {
 	}
 };
 
+const findByShopId = async (shopId) => {
+	try {
+		const query = `SELECT * FROM Barber WHERE barbershop_id = ?;`;
+		const data = [shopId];
+		const response = await executeQuery(query, data);
+
+		if (response) {
+			return response;
+		} else {
+			return "No record found";
+		}
+	} catch (error) {
+		logger.error(`Error fetching barbers: ${error.message}`);
+	}
+};
+
 const create = async ({ name, email, phone, password }) => {
 	try {
 		const exist = await executeQuery(
@@ -117,4 +133,5 @@ module.exports = {
 	create,
 	update,
 	remove,
+	findByShopId,
 };

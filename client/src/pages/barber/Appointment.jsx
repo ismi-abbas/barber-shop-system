@@ -2,11 +2,10 @@ import { format } from "date-fns";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllAppointments, updateBooking } from "../../api/booking";
 import Layout from "../../components/shared/Layout";
-import { addToSales } from "../../api/sales";
+import { updateSale } from "../../api/sales";
 
 const Appointment = () => {
 	const shopId = sessionStorage.getItem("shopId");
-	console.log(shopId);
 	const queryClient = useQueryClient();
 
 	const { data: allAppointment } = useQuery({
@@ -20,10 +19,12 @@ const Appointment = () => {
 		onSuccess: queryClient.invalidateQueries({ queryKey: ["allAppointment"] })
 	});
 
-	const { mutateAsync: insertIntoSales } = useMutation({
-		mutationFn: addToSales,
-		mutationKey: ["insertIntoSale"],
-		onSuccess: queryClient.invalidateQueries({ queryKey: ["allAppointment"] })
+	const { mutate: updateSaleMutation } = useMutation({
+		mutationFn: updateSale,
+		mutationKey: ["updateSale"],
+		onSuccess: queryClient.invalidateQueries({
+			queryKey: ["allAppointment"]
+		})
 	});
 
 	return (
@@ -39,6 +40,8 @@ const Appointment = () => {
 						barber_name,
 						customer_name,
 						service_name,
+						payment_status,
+						sales_id,
 						status
 					}) => (
 						<div
@@ -62,15 +65,41 @@ const Appointment = () => {
 									/>
 								</div>
 							</div>
-							<div className="w-3/5 gap-2 flex flex-col justify-between">
-								<div>
-									<h3 className="font-base inline-flex text-gray-900">
+							<div className="w-3/5 gap-2 flex flex-col">
+								<div className="mb-4">
+									<h3 className="font-base text-gray-900">
 										Customer: {customer_name}
 									</h3>
 									<h3>Barber: {barber_name}</h3>
 									<h3>Services: {service_name}</h3>
 								</div>
-								<div className="flex gap-2 justify-end">
+								<div className="flex gap-2">
+									<div
+										className={`flex px-2 border-0 rounded-md text-sm ${
+											payment_status === "paid"
+												? "text-sky-700 bg-sky-200"
+												: "text-red-700 bg-red-200 "
+										}`}
+									>
+										{payment_status === "paid" ? "Paid" : "Unpaid"}
+									</div>
+									{payment_status === "unpaid" ? (
+										<>
+											<button
+												onClick={() =>
+													updateSaleMutation({
+														paymentStatus: "paid",
+														salesId: sales_id
+													})
+												}
+												className="px-4 border rounded-md bg-indigo-500 hover:bg-indigo-600 text-white text-sm"
+											>
+												Pay
+											</button>
+										</>
+									) : null}
+								</div>
+								<div className="flex gap-2">
 									{status === "pending" ? (
 										<>
 											<button
@@ -79,17 +108,8 @@ const Appointment = () => {
 														status: "approved",
 														bookingId: id
 													});
-													insertIntoSales({
-														amount: 20,
-														barberId: 1,
-														date: new Date(),
-														serviceId: 1,
-														bookingId: id,
-														barbershopId: 1,
-														paymentStatus: "unpaid"
-													});
 												}}
-												className="text-white bg-green-600 px-3 py-1 focus:outline-none hover:bg-green-700 rounded text-sm"
+												className="text-white bg-green-600 px-3 py-1 focus:outline-none hover:bg-green-700 rounded-md text-sm"
 											>
 												Accept
 											</button>
@@ -100,20 +120,20 @@ const Appointment = () => {
 														bookingId: id
 													});
 												}}
-												className="text-white bg-red-500 px-3 py-1 focus:outline-none hover:bg-red-600 rounded text-sm"
+												className="text-white bg-red-500 px-3 py-1 focus:outline-none hover:bg-red-600 rounded-md text-sm"
 											>
 												Reject
 											</button>
 										</>
 									) : status === "approved" ? (
 										<>
-											<h3 className="flex mx-auto text-sm text-green-700 bg-green-100 px-4 border-0 rounded-md">
+											<h3 className="text-sm text-green-700 bg-green-100 px-4 border-0 rounded-md">
 												Approved
 											</h3>
 										</>
 									) : (
 										<>
-											<h3 className="flex mx-auto text-sm text-red-700 bg-red-100 px-4 border-0 rounded-md">
+											<h3 className="text-sm text-red-700 bg-red-100 px-4 border-0 rounded-md">
 												Rejected
 											</h3>
 										</>

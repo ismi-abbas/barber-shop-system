@@ -276,6 +276,7 @@ const BarbershopInfo = () => {
 									customerId: userId,
 									date: dateTime,
 									serviceId: service.id,
+									servicePrice: service.price,
 									status: "pending"
 								})
 							}

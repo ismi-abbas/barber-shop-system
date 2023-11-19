@@ -60,9 +60,6 @@ const CustomerNavbar = () => {
 			<Link className="mr-5 hover:text-gray-900" to="/barbershop">
 				Shop List
 			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/hair-shop">
-				Hair Shop
-			</Link>
 			<Link className="mr-5 hover:text-gray-900" to="/booking">
 				Bookings
 			</Link>
@@ -76,8 +73,11 @@ const ManagerNavbar = () => {
 			<Link className="mr-5 hover:text-gray-900" to="/appointment">
 				Appointments
 			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/appointment">
+			<Link className="mr-5 hover:text-gray-900" to="/manage-shop">
 				Manage Shop
+			</Link>
+			<Link className="mr-5 hover:text-gray-900" to="/analytics">
+				Analytics
 			</Link>
 		</>
 	);

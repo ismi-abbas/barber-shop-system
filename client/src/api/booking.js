@@ -5,10 +5,19 @@ export const addBooking = async ({
 	customerId,
 	barbershopId,
 	serviceId,
+	servicePrice,
 	date,
 	status
 }) => {
-	const body = { barberId, customerId, barbershopId, serviceId, date, status };
+	const body = {
+		barberId,
+		customerId,
+		barbershopId,
+		serviceId,
+		servicePrice,
+		date,
+		status
+	};
 
 	const response = await apiClient.post("/booking/create", body);
 

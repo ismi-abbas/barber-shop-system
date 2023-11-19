@@ -28,12 +28,14 @@ const create = async ({
 	barbershopId,
 	customerId,
 	serviceId,
+	servicePrice,
 	date,
 	status,
 }) => {
 	try {
-		const query = `INSERT INTO Bookings (barber_id, customer_id, date_time, status, barbershop_id, service_id) VALUES (?, ?, ?, ?, ?, ?)`;
-		const data = [
+		const bookingQuery =
+			"INSERT INTO Bookings (barber_id, customer_id, date_time, status, barbershop_id, service_id) VALUES (?, ?, ?, ?, ?, ?)";
+		const bookingData = [
 			barberId,
 			customerId,
 			new Date(date),
@@ -42,10 +44,31 @@ const create = async ({
 			serviceId,
 		];
 
-		const response = await executeQuery(query, data);
+		const bookingResponse = await executeQuery(bookingQuery, bookingData);
 
-		if (response) {
-			return response;
+		if (bookingResponse.affectedRows > 0) {
+			const lastBookingId = bookingResponse.insertId;
+
+			const salesQuery =
+				"INSERT INTO Sales (barbershop_id, date, amount, service_id, barber_id, payment_status, booking_id, is_cancelled) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			const salesData = [
+				barbershopId,
+				new Date(),
+				servicePrice,
+				serviceId,
+				barberId,
+				"unpaid",
+				lastBookingId,
+				0,
+			];
+
+			const salesResponse = await executeQuery(salesQuery, salesData);
+
+			if (salesResponse.affectedRows > 0) {
+				return "Booking and sales created successfully";
+			} else {
+				return "Error creating sales";
+			}
 		} else {
 			return "Error creating booking";
 		}
@@ -128,12 +151,14 @@ const findByCustomerId = async (customerId) => {
 			B.date_time as booking_date,
 			B.status,
 			S.price,
-			S.service_name
+			S.service_name,
+			SS.payment_status
 			FROM Bookings B
 			  INNER JOIN Customer C on C.id = B.customer_id
 			  INNER JOIN Barber BB ON BB.id = B.barber_id
 			  INNER JOIN Barbershop BS ON BS.id = B.barbershop_id
-			  INNER JOIN Services S on S.id = B.service_id
+			  INNER JOIN Services S ON S.id = B.service_id
+			  INNER JOIN Sales SS ON SS.booking_id = B.id
 			WHERE customer_id = ?`;
 		const data = [customerId];
 
@@ -165,12 +190,15 @@ const findBookingByShopId = async (shopId) => {
 		C.phone         as customer_phone,
 		C.email         as customer_email,
 		S.service_name,
-		B.status
+		B.status,
+		SS.payment_status,
+		SS.id			as sales_id
 		FROM Bookings B
 			INNER JOIN Customer C ON B.customer_id = C.id
         	INNER JOIN Barbershop BS ON B.barbershop_id = BS.id
         	INNER JOIN Barber BB ON B.barber_id = BB.id
         	INNER JOIN Services S ON S.id = B.service_id
+			INNER JOIN Sales SS ON SS.booking_id = B.id
 		WHERE B.barbershop_id = ?`;
 
 		const data = [shopId];

@@ -41,3 +41,27 @@ export const getAllBarbers = async () => {
 		throw new Error("Failed getting all");
 	}
 };
+
+export const getShopBarber = async (barbershopId) => {
+	const response = await apiClient.get(`/barber/shop/${barbershopId}`);
+
+	if (response.status === 200) {
+		return response.data;
+	} else {
+		throw new Error("Failed getting all");
+	}
+};
+
+export const editBarber = async ({ barberId, name, phone }) => {
+	const response = await apiClient.put("/barber/update", {
+		id: barberId,
+		name,
+		phone
+	});
+
+	if (response.status === 200) {
+		return response.data;
+	} else {
+		throw new Error("Failed updating barber");
+	}
+};
