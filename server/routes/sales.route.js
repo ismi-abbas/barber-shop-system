@@ -4,7 +4,7 @@ const {
 	getAllSales,
 	getRevenue,
 	getByBookingId,
-	updateSale,
+	updateSale
 } = require("../controllers/sales.controller");
 
 const sales = express.Router();
@@ -35,7 +35,7 @@ sales.put("/order/update/:salesId", async (req, res) => {
 
 	console.log({
 		salesId,
-		paymentStatus,
+		paymentStatus
 	});
 
 	const response = await updateSale(salesId, paymentStatus);

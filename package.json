@@ -1,19 +1,17 @@
 {
-	"name": "barber-shop-system",
-	"version": "1.0.0",
-	"main": "index.js",
-	"license": "MIT",
-	"private": true,
-	"workspaces": [
-		"server",
-		"client"
-	],
-	"scripts": {
-		"dev": "concurrently \"yarn workspace server dev\" \"yarn workspace client dev\"",
-		"install": "yarn install",
-		"start": "concurrently \"yarn workspace server start\" \"yarn workspace client build && yarn workspace client preview\""
-	},
-	"devDependencies": {
-		"concurrently": "^8.2.2"
-	}
+  "name": "barber-shop-system",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"yarn workspace server dev\" \"yarn workspace client dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

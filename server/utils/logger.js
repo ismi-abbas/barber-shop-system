@@ -3,7 +3,7 @@ const { createLogger, format, transports } = require("winston");
 const { combine, printf } = format;
 
 const timestampFormat = format.timestamp({
-	format: "DD-MMM-YYYY HH:mm:ss.SSS",
+	format: "DD-MMM-YYYY HH:mm:ss.SSS"
 });
 
 const customFormat = printf(({ level, message, timestamp }) => {
@@ -20,8 +20,8 @@ const morganMiddleware = morgan(
 	`:method :url :status :res[content-length] - :response-time ms`,
 	{
 		stream: {
-			write: (message) => logger.http(message.trim()),
-		},
+			write: (message) => logger.http(message.trim())
+		}
 	}
 );
 
@@ -31,21 +31,21 @@ const logger = createLogger({
 		new transports.Console({
 			level: "debug",
 			colorize: true,
-			format: debugFormat,
+			format: debugFormat
 		}),
 		new transports.Console({ level: "http" }),
-		new transports.File({ filename: "combined.log" }),
+		new transports.File({ filename: "combined.log" })
 	],
 	exceptionHandlers: [
 		new transports.Console({
 			level: "error",
-			format: printFormat,
+			format: printFormat
 		}),
-		new transports.File({ filename: "exception.log" }), // Change the file name and path as needed
-	],
+		new transports.File({ filename: "exception.log" }) // Change the file name and path as needed
+	]
 });
 
 module.exports = {
 	logger,
-	morganMiddleware,
+	morganMiddleware
 };

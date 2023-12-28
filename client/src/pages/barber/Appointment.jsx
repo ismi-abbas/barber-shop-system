@@ -46,8 +46,7 @@ const Appointment = () => {
 					}) => (
 						<div
 							className="flex flex-row border-2 border-gray-200/60 rounded-md h-72 p-4"
-							key={id}
-						>
+							key={id}>
 							<div className="w-40 flex flex-col mx-4 rounded-lg">
 								<div>
 									<div className="bg-indigo-500 text-white py-1 px-2 rounded-md text-sm">
@@ -79,8 +78,7 @@ const Appointment = () => {
 											payment_status === "paid"
 												? "text-sky-700 bg-sky-200"
 												: "text-red-700 bg-red-200 "
-										}`}
-									>
+										}`}>
 										{payment_status === "paid" ? "Paid" : "Unpaid"}
 									</div>
 									{payment_status === "unpaid" ? (
@@ -92,8 +90,7 @@ const Appointment = () => {
 														salesId: sales_id
 													})
 												}
-												className="px-4 border rounded-md bg-indigo-500 hover:bg-indigo-600 text-white text-sm"
-											>
+												className="px-4 border rounded-md bg-indigo-500 hover:bg-indigo-600 text-white text-sm">
 												Pay
 											</button>
 										</>
@@ -109,8 +106,7 @@ const Appointment = () => {
 														bookingId: id
 													});
 												}}
-												className="text-white bg-green-600 px-3 py-1 focus:outline-none hover:bg-green-700 rounded-md text-sm"
-											>
+												className="text-white bg-green-600 px-3 py-1 focus:outline-none hover:bg-green-700 rounded-md text-sm">
 												Accept
 											</button>
 											<button
@@ -120,8 +116,7 @@ const Appointment = () => {
 														bookingId: id
 													});
 												}}
-												className="text-white bg-red-500 px-3 py-1 focus:outline-none hover:bg-red-600 rounded-md text-sm"
-											>
+												className="text-white bg-red-500 px-3 py-1 focus:outline-none hover:bg-red-600 rounded-md text-sm">
 												Reject
 											</button>
 										</>

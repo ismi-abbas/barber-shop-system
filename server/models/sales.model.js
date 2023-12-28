@@ -51,7 +51,7 @@ const addOrder = async ({
 	amount,
 	serviceId,
 	barberId,
-	paymentStatus,
+	paymentStatus
 }) => {
 	try {
 		const exist = await executeQuery(
@@ -69,7 +69,7 @@ const addOrder = async ({
 				amount,
 				serviceId,
 				barberId,
-				paymentStatus,
+				paymentStatus
 			];
 			const response = await executeQuery(query, data);
 
@@ -146,5 +146,5 @@ module.exports = {
 	addOrder,
 	getRevenue,
 	findByBookingId,
-	update,
+	update
 };

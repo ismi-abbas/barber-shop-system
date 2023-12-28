@@ -17,6 +17,12 @@ import NotFound from "./pages/NotFound";
 import ManagerLogin from "./pages/ManagerLogin";
 import ShopManagement from "./pages/barber/ShopManagement";
 import Analytics from "./pages/barber/Analytics";
+import ManagerRegister from "./pages/ManagerRegister";
+import ShoppingCart from "./components/ShoppingCart";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Checkout from "./components/Checkout";
+import Store from "./pages/customer/Store";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +35,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Register />} />
+					<Route path="/register/manager" element={<ManagerRegister />} />
 					<Route path="/barbershop" element={<BarberShopPage />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/features" element={<Features />} />
@@ -42,8 +49,22 @@ function App() {
 					<Route path="/booking" element={<BookingPage />} />
 					<Route path="/manage-shop" element={<ShopManagement />} />
 					<Route path="/analytics" element={<Analytics />} />
+					<Route path="/store" element={<Store />} />
+					<Route path="/cart" element={<ShoppingCart />} />
+					<Route path="/checkout" element={<Checkout />} />
 				</Routes>
 			</LoginProvider>
+			<ToastContainer
+				position="top-center"
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="light"
+			/>
 			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);

@@ -42,14 +42,11 @@ const createBarbershop = async (data) => {
 	try {
 		const response = await barberShop.create(data);
 
-		if (response.data) {
-			return utils.prepareResponse(response, 200, "success");
+		if (response.insertId) {
+			response.shopId = response.insertId;
+			return utils.prepareResponse(response, 201, "success");
 		} else {
-			return utils.prepareResponse(
-				response,
-				400,
-				"Error creating barbershop"
-			);
+			return utils.prepareResponse(response, 400, "Error creating barbershop");
 		}
 	} catch (error) {
 		return utils.handleError("Error creating barber");
@@ -106,6 +103,130 @@ const getImage = async (imageId) => {
 	}
 };
 
+const getShopItems = async (shopId) => {
+	try {
+		const response = await barberShop.getShopItems(shopId);
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting barber");
+		return error;
+	}
+};
+
+const getAllShopItems = async () => {
+	try {
+		const response = await barberShop.getAllShopItems();
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error gettings all shops");
+		return error;
+	}
+};
+
+const addShopItem = async (itemData) => {
+	try {
+		const response = await barberShop.addShopItem(itemData);
+
+		if (response) {
+			return utils.prepareResponse(response, 201, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting barber");
+		return error;
+	}
+};
+
+const removeShopItem = async (shopId, itemId) => {
+	try {
+		const response = await barberShop.deleteShopItem({
+			shopId,
+			itemId
+		});
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting shop item");
+		return error;
+	}
+};
+
+const updateShopItem = async (itemData) => {
+	try {
+		const response = await barberShop.updateShopItem(itemData);
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error updating shop item");
+		return error;
+	}
+};
+
+const getInventoryItems = async (shopId) => {
+	try {
+		const response = await barberShop.getInventoryItems(shopId);
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error getting barber list");
+		return error;
+	}
+};
+
+const addInventoryItem = async (itemData) => {
+	try {
+		const response = await barberShop.addInventory(itemData);
+
+		if (response) {
+			return utils.prepareResponse(response, 201, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting barber");
+		return error;
+	}
+};
+
+const deleteInventoryItem = async (shopId, itemId) => {
+	try {
+		const response = await barberShop.removeInventory({
+			itemId,
+			barbershopId: shopId
+		});
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting barber");
+		return error;
+	}
+};
+
+const updateInventoryItem = async (itemData) => {
+	try {
+		console.log("ITEM DATA", itemData);
+		const response = await barberShop.updateInventory(itemData);
+
+		if (response) {
+			return utils.prepareResponse(response, 200, "success");
+		}
+	} catch (error) {
+		utils.handleError("Error deleting barber");
+		return error;
+	}
+};
+
 module.exports = {
 	getAllBarbershop,
 	getBarberShopById,
@@ -115,4 +236,13 @@ module.exports = {
 	getBarberList,
 	uploadImage,
 	getImage,
+	getShopItems,
+	getAllShopItems,
+	addShopItem,
+	updateShopItem,
+	removeShopItem,
+	getInventoryItems,
+	addInventoryItem,
+	deleteInventoryItem,
+	updateInventoryItem
 };

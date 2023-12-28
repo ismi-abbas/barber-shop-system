@@ -7,7 +7,7 @@ const Home = () => {
 			<div className="flex flex-col items-center justify-center h-full">
 				<div className="text-5xl text-zinc-900">
 					Welcome to{" "}
-					<span className="underline decoration-indigo-500">BarberBook.co</span>
+					<span className="underline decoration-indigo-500">BarberBook</span>
 				</div>
 				<section className="text-gray-600 body-font">
 					<div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
@@ -18,7 +18,7 @@ const Home = () => {
 								Discover, Connect, and Book with BarberBook.co
 							</h1>
 							<p className="mb-8 leading-relaxed">
-								Embark on a grooming experience like never before. BarberBook.co
+								Embark on a grooming experience like never before. BarberBook
 								brings you a seamless platform to book your favorite barber with
 								ease. From trendy haircuts to classic styles, we&apos;re here to
 								transform your look and enhance your confidence.

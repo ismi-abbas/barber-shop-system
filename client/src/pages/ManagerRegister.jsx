@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import Layout from "../components/shared/Layout";
-import { registerUser } from "../api/users";
+import { registerManager } from "../api/manager";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const ManagerRegister = () => {
 	const navigate = useNavigate();
 
 	const [name, setName] = useState("");
@@ -15,9 +15,9 @@ const Register = () => {
 	const [error, setError] = useState("");
 
 	const { mutateAsync: registerUserMutation } = useMutation({
-		mutationFn: registerUser,
+		mutationFn: registerManager,
 		onSuccess: () => {
-			navigate("/login");
+			navigate("/login/manager");
 		}
 	});
 
@@ -46,84 +46,89 @@ const Register = () => {
 	return (
 		<Layout>
 			<div className="flex min-h-full flex-col items-center justify-center">
-				<h1 className="font-bold text-2xl text-center leading-9 text-gray-900">
-					Register
+				<h1 className="font-semibold text-2xl text-center text-gray-900">
+					Manager Register
 				</h1>
+
 				{/* Form */}
-				<div className="flex flex-col w-96 gap-4">
+				<div className="flex flex-col w-96 gap-4 mt-4">
 					<div className="flex flex-col gap-2">
 						<label
 							htmlFor="name"
 							className="block text-sm font-medium leading-6 text-gray-900">
-							Name
+							Manager Name
+							<input
+								required
+								type="text"
+								name="name"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+								className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+							/>
 						</label>
-						<input
-							type="text"
-							name="name"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-						/>
 					</div>
+
 					{/* Email */}
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col">
 						<label
 							htmlFor="name"
 							className="block text-sm font-medium leading-6 text-gray-900">
-							Email
+							Manager Email
+							<input
+								name="email"
+								type="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+							/>
 						</label>
-						<input
-							name="email"
-							type="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-						/>
 					</div>
+
 					{/* Phone */}
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col">
 						<label
 							htmlFor="name"
 							className="block text-sm font-medium leading-6 text-gray-900">
 							Phone
+							<input
+								name="phone"
+								value={phone}
+								onChange={(e) => setPhone(e.target.value)}
+								type="tel"
+								className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+							/>
 						</label>
-						<input
-							name="phone"
-							value={phone}
-							onChange={(e) => setPhone(e.target.value)}
-							type="email"
-							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-						/>
 					</div>
+
 					{/* Password */}
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col">
 						<label
 							htmlFor="name"
 							className="block text-sm font-medium leading-6 text-gray-900">
 							Password
+							<input
+								name="password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								type="password"
+								className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+							/>
 						</label>
-						<input
-							name="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							type="password"
-							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-						/>
 					</div>
 
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col">
 						<label
 							htmlFor="name"
 							className="block text-sm font-medium leading-6 text-gray-900">
 							Confirm Password
+							<input
+								type="password"
+								name="password"
+								value={confirmPassword}
+								onChange={(e) => setConfirmPassword(e.target.value)}
+								className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+							/>
 						</label>
-						<input
-							type="password"
-							name="password"
-							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
-							className="block w-full p-2 border-0 rounded-md shadow-sm ring-1 ring-inset ring-gray-300 active:ring-purple-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-						/>
 					</div>
 
 					{error && <div className="text-red-500 text-sm">{error}</div>}
@@ -134,12 +139,6 @@ const Register = () => {
 							onClick={handleRegisterUser}>
 							Register
 						</button>
-
-						<button
-							className="underline text-center w-full decoration-indigo-600 underline-offset-1"
-							onClick={() => navigate("/register/manager")}>
-							Register as manager
-						</button>
 					</div>
 				</div>
 			</div>
@@ -147,4 +146,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default ManagerRegister;

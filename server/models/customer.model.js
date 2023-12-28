@@ -113,9 +113,11 @@ const login = async (email) => {
 		if (response) {
 			return response;
 		} else {
-			return "Error deleting customer";
+			return "Error login customer";
 		}
-	} catch (error) {}
+	} catch (error) {
+		logger.error(`Error login customer: ${error.message}`);
+	}
 };
 
 module.exports = {
@@ -124,5 +126,5 @@ module.exports = {
 	create,
 	update,
 	remove,
-	login,
+	login
 };

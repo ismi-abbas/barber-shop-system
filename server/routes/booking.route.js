@@ -5,7 +5,7 @@ const {
 	createBooking,
 	updateBooking,
 	deleteBooking,
-	getByCustomerId,
+	getByCustomerId
 } = require("../controllers/booking.controller");
 
 const booking = express.Router();

@@ -214,8 +214,7 @@ const BarbershopInfo = () => {
 												selectedBarber === barber
 													? "ring-indigo-500 ring-2 ring-inset"
 													: ""
-											}`}
-										>
+											}`}>
 											<div className="text-base text-gray-900 font-medium">
 												{barber.name}
 											</div>
@@ -283,15 +282,13 @@ const BarbershopInfo = () => {
 						/>
 						<button
 							onClick={() => openModal()}
-							className="inline-flex items-center bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded-md text-sm mt-4 md:mt-0 text-white"
-						>
+							className="inline-flex items-center bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded-md text-sm mt-4 md:mt-0 text-white">
 							Confirm
 						</button>
 
 						<button
 							onClick={() => cancelBooking()}
-							className="inline-flex items-center bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded-md text-sm mt-4 md:mt-0 text-white"
-						>
+							className="inline-flex items-center bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded-md text-sm mt-4 md:mt-0 text-white">
 							Cancel
 						</button>
 					</div>
@@ -318,8 +315,7 @@ function SelectService({ services, service, setService }) {
 								} ${
 									checked ? "bg-indigo-500 text-white" : "bg-gray-200"
 								} relative flex cursor-pointer rounded-lg px-5 py-4 focus:outline-none`
-							}
-						>
+							}>
 							{({ checked }) => (
 								<>
 									<div className="flex w-full items-center justify-between">
@@ -329,16 +325,14 @@ function SelectService({ services, service, setService }) {
 													as="p"
 													className={`font-medium  ${
 														checked ? "text-white" : "text-gray-900"
-													}`}
-												>
+													}`}>
 													{service.service_name}
 												</RadioGroup.Label>
 												<RadioGroup.Description
 													as="span"
 													className={`inline ${
 														checked ? "text-sky-100" : "text-gray-900"
-													}`}
-												>
+													}`}>
 													<h3>RM {service.price}</h3>
 												</RadioGroup.Description>
 											</div>
@@ -408,8 +402,7 @@ function TimeSlot({
 					as={Fragment}
 					leave="transition ease-in duration-100"
 					leaveFrom="opacity-100"
-					leaveTo="opacity-0"
-				>
+					leaveTo="opacity-0">
 					<Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white border  py-1 text-base ring-1 ring-black/5 focus:outline-none sm:text-sm">
 						{timeSlot.map((slot, idx) => (
 							<Listbox.Option
@@ -427,15 +420,13 @@ function TimeSlot({
 										active ? "bg-indigo-200 text-indigo-900" : "text-gray-900"
 									} ${disabled ? "bg-red-100 text-red-900" : "text-gray-900"}`
 								}
-								value={slot}
-							>
+								value={slot}>
 								{({ selected }) => (
 									<>
 										<span
 											className={`block truncate ${
 												selected ? "font-medium" : "font-normal"
-											}`}
-										>
+											}`}>
 											{format(new Date(`2000-01-01T${slot.value}`), "hh:mm a")}
 										</span>
 										{selected ? (

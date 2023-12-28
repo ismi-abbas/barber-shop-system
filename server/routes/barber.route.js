@@ -21,9 +21,7 @@ barberRouter.get("/shop/:barberShopId", async (req, res) => {
 });
 
 barberRouter.post("/create", async (req, res) => {
-	const { body } = req;
-	const response = await barber.createBarber(body);
-
+	const response = await barber.createBarber(req.body);
 	res.status(response.statusCode).send(response);
 });
 

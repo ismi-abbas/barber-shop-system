@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useLogin } from "../../context/LoginProvider";
 
 const Header = () => {
@@ -10,12 +10,17 @@ const Header = () => {
 			<div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
 				<div className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 cursor-pointer">
 					<span className="ml-3 text-xl">
-						<Link to="/">BarberBook.co</Link>
+						<Link
+							to={
+								!isLoggedIn ? "/" : isManager ? "/appointment" : "/barbershop"
+							}>
+							BarberBook
+						</Link>
 					</span>
 				</div>
 				<nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
 					{isLoggedIn ? (
-						isManager == true ? (
+						isManager === true ? (
 							<ManagerNavbar />
 						) : (
 							<CustomerNavbar />
@@ -36,9 +41,8 @@ const Header = () => {
 
 					{isLoggedIn ? (
 						<button
-							onClick={handleLogout}
-							className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-						>
+							onClick={() => handleLogout()}
+							className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
 							Logout
 						</button>
 					) : (
@@ -55,50 +59,83 @@ const Header = () => {
 };
 
 const CustomerNavbar = () => {
+	const activeClass = "border-b-2 border-indigo-600 text-indigo-600 px-2";
+
 	return (
-		<>
-			<Link className="mr-5 hover:text-gray-900" to="/barbershop">
-				Shop List
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/booking">
+		<div className="gap-4 flex items-center">
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/barbershop">
+				Barbershops
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/store">
+				Store
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/booking">
 				Bookings
-			</Link>
-		</>
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/cart">
+				Cart
+			</NavLink>
+		</div>
 	);
 };
 
 const ManagerNavbar = () => {
+	const activeClass = "border-b-2 border-indigo-600 text-indigo-600 px-2";
 	return (
-		<>
-			<Link className="mr-5 hover:text-gray-900" to="/appointment">
+		<div className="gap-4 flex items-center">
+			<NavLink
+				// className="mr-5 hover:text-gray-900"
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/appointment">
 				Appointments
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/manage-shop">
-				Manage Shop
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/analytics">
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/manage-shop">
+				Manage
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/analytics">
 				Analytics
-			</Link>
-		</>
+			</NavLink>
+		</div>
 	);
 };
 
 const Navbar = () => {
+	const activeClass = "border-b-2 border-indigo-600 text-indigo-600 px-2";
 	return (
-		<>
-			<Link className="mr-5 hover:text-gray-900" to="/about">
+		<div className="gap-4 flex items-center">
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/about">
 				About
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/features">
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/features">
 				Features
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/reviews">
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/reviews">
 				Reviews
-			</Link>
-			<Link className="mr-5 hover:text-gray-900" to="/contact">
+			</NavLink>
+			<NavLink
+				className={({ isActive }) => (isActive ? activeClass : "px-2")}
+				to="/contact">
 				Contact
-			</Link>
-		</>
+			</NavLink>
+		</div>
 	);
 };
 

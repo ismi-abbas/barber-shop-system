@@ -38,8 +38,7 @@ const Login = () => {
 					<div className="flex flex-col gap-2">
 						<label
 							htmlFor="name"
-							className="block text-sm font-medium leading-6 text-gray-900"
-						>
+							className="block text-sm font-medium leading-6 text-gray-900">
 							Email
 						</label>
 						<input
@@ -53,8 +52,7 @@ const Login = () => {
 					<div className="flex flex-col gap-2">
 						<label
 							htmlFor="name"
-							className="block text-sm font-medium leading-6 text-gray-900"
-						>
+							className="block text-sm font-medium leading-6 text-gray-900">
 							Password
 						</label>
 						<input
@@ -68,21 +66,20 @@ const Login = () => {
 					<div className="">
 						<button
 							onClick={() => handleLogin()}
-							className="w-full p-2 border bg-indigo-600 text-white tracking-wide rounded-lg text-center mt-2 hover:mouse-pointer"
-						>
+							className="w-full p-2 border bg-indigo-600 text-white tracking-wide rounded-lg text-center mt-2 hover:mouse-pointer">
 							Login
 						</button>
 					</div>
 					<Link to="/login/manager">
-						<button className="w-full text-gray hover:text-indigo-500  tracking-wide text-center hover:mouse-pointer underline underline-offset-2">
-							Manager Login
+						<button className="w-full text-gray hover:text-indigo-600  tracking-wide text-center hover:mouse-pointer underline underline-offset-2">
+							Barbershop Login
 						</button>
 					</Link>
 					<div className="flex items-center flex-col">
 						<Link to="/register">
 							<p>
 								Dont have an account?{" "}
-								<span className="underline underline-offset-2 text-indigo-500 hover:cursor-pointer">
+								<span className="underline underline-offset-2 text-indigo-600 hover:cursor-pointer">
 									Register
 								</span>{" "}
 								here

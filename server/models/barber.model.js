@@ -44,17 +44,17 @@ const findByShopId = async (shopId) => {
 	}
 };
 
-const create = async ({ name, email, phone, password }) => {
+const create = async ({ name, email, phone, shopId }) => {
 	try {
 		const exist = await executeQuery(
 			"SELECT * FROM barber_shop.Barber WHERE name = ? AND email = ?",
 			[name, email]
 		);
 
-		if (!exist) {
+		if (exist.length === 0) {
 			const query =
-				"INSERT INTO Barber (name, email, phone, password, barbershop_id, availability) VALUES (?, ?, ?, ?, ?, ?)";
-			const data = [name, email, phone, password, null, "true"];
+				"INSERT INTO Barber (name, email, phone, barbershop_id, availability) VALUES (?, ?, ?, ?, ?)";
+			const data = [name, email, phone, shopId, 1];
 
 			const response = await executeQuery(query, data);
 
@@ -64,9 +64,10 @@ const create = async ({ name, email, phone, password }) => {
 				return "Error creating barber";
 			}
 		} else {
-			return "User existed";
+			return "Barber existed";
 		}
 	} catch (error) {
+		logger.error(`Error creating barbers: ${error.message}`);
 		return error;
 	}
 };
@@ -133,5 +134,5 @@ module.exports = {
 	create,
 	update,
 	remove,
-	findByShopId,
+	findByShopId
 };

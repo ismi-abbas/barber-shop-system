@@ -18,14 +18,14 @@ const BarberBookReviews = () => {
 										src="https://dummyimage.com/302x302"
 									/>
 									<p className="leading-relaxed">
-										&quot;BarberBook.co made grooming convenient and enjoyable
-										for BarberBook.co made grooming convenient and enjoyable for
-										me. The barbers are skilled, and the atmosphere is
-										welcoming. I always leave satisfied with my haircut.&quot;
+										&quot;BarberBook made grooming convenient and enjoyable for
+										BarberBook made grooming convenient and enjoyable for me.
+										The barbers are skilled, and the atmosphere is welcoming. I
+										always leave satisfied with my haircut.&quot;
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-										John Doe
+										Gojo Satoru
 									</h2>
 									<p className="text-gray-500">Satisfied Customer</p>
 								</div>
@@ -38,13 +38,13 @@ const BarberBookReviews = () => {
 										src="https://dummyimage.com/300x300"
 									/>
 									<p className="leading-relaxed">
-										&quot;I&apos;ve been using BarberBook.co for a year now, and
+										&quot;I&apos;ve been using BarberBook for a year now, and
 										I&apos;ve never been disappointed. The app is user-friendly,
 										and the barbers are professional. Highly recommend!&quot;
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-										Jane Smith
+										John Wick
 									</h2>
 									<p className="text-gray-500">Regular Client</p>
 								</div>
@@ -57,13 +57,13 @@ const BarberBookReviews = () => {
 										src="https://dummyimage.com/305x305"
 									/>
 									<p className="leading-relaxed">
-										&quot;BarberBook.co has revolutionized my grooming routine.
+										&quot;BarberBook has revolutionized my grooming routine.
 										Easy booking, great service, and the barbers pay attention
 										to detail. Best grooming platform!&quot;
 									</p>
 									<span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-6 mb-4" />
 									<h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-										Michael Johnson
+										Michael Jackson
 									</h2>
 									<p className="text-gray-500">Happy Customer</p>
 								</div>

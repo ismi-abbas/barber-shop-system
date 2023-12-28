@@ -30,11 +30,13 @@ const Analytics = () => {
 		queryFn: () => getRevenue("today")
 	});
 
-	const formattedData = weeklyRevenue?.data.map((revenue) => ({
-		day: format(new Date(revenue.day), "eeee"),
-		daily_revenue: revenue.daily_revenue,
-		customer: revenue.total_customers
-	}));
+	const formattedData = weeklyRevenue?.data.map((revenue) => {
+		return {
+			day: format(new Date(revenue.day), "eeee"),
+			daily_revenue: revenue.daily_revenue,
+			customer: revenue.total_customers
+		};
+	});
 
 	let totalData;
 	if (monthlyRevenue) {
@@ -62,8 +64,7 @@ const Analytics = () => {
 						width={730}
 						height={250}
 						data={formattedData}
-						margin={{ top: 30, right: 30, left: 5, bottom: 5 }}
-					>
+						margin={{ top: 30, right: 30, left: 5, bottom: 5 }}>
 						<CartesianGrid strokeDasharray="2 2" />
 						<XAxis dataKey="day" name="Day" />
 						<YAxis dataKey="daily_revenue" />
@@ -94,8 +95,7 @@ const Analytics = () => {
 						width={730}
 						height={250}
 						data={totalData}
-						margin={{ top: 30, right: 30, left: 5, bottom: 5 }}
-					>
+						margin={{ top: 30, right: 30, left: 5, bottom: 5 }}>
 						<CartesianGrid strokeDasharray="3 3" />
 						<XAxis dataKey="month" />
 						<YAxis />

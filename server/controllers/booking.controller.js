@@ -73,5 +73,5 @@ module.exports = {
 	createBooking,
 	updateBooking,
 	deleteBooking,
-	getByCustomerId,
+	getByCustomerId
 };

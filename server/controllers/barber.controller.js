@@ -25,16 +25,12 @@ const getById = async (barberId) => {
 	}
 };
 
-const createBarber = async (data) => {
-	const { password } = data;
-	const hashedPassword = await utils.hashPasssword(password);
-
-	data.password = hashedPassword;
+const createBarber = async ({ name, phone, email, shopId }) => {
 	try {
-		const response = await barberModel.create(data);
+		const response = await barberModel.create({ shopId, name, phone, email });
 
-		if (response.data) {
-			return utils.prepareResponse(response, 200, "success");
+		if (response.insertId) {
+			return utils.prepareResponse(response, 201, "success");
 		} else if (response === "User existed") {
 			return utils.prepareResponse(response, 400, "failed");
 		}
@@ -88,5 +84,5 @@ module.exports = {
 	createBarber,
 	updateBarber,
 	deleteBarber,
-	getByShopId,
+	getByShopId
 };

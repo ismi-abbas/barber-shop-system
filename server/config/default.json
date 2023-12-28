@@ -4,7 +4,7 @@
 	"db": {
 		"host": "localhost",
 		"user": "root",
-		"password": "",
+		"password": "root",
 		"database": "barber_shop",
 		"port": "3306",
 		"connectionLimit": 10

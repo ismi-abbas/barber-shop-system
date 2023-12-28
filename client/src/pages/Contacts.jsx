@@ -31,9 +31,7 @@ const Contacts = () => {
 								<h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">
 									ADDRESS
 								</h2>
-								<p className="mt-1">
-									BarberBook.co, Inc. No 123 Jalan Tun Abdul Samad, KLCC.
-								</p>
+								<p className="mt-1">BarberBook, Inc. Rumah Gojo Satoru.</p>
 							</div>
 							<div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
 								<h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">
@@ -72,8 +70,7 @@ const Contacts = () => {
 						<div className="relative mb-4">
 							<label
 								htmlFor="email"
-								className="leading-7 text-sm text-gray-600"
-							>
+								className="leading-7 text-sm text-gray-600">
 								Email
 							</label>
 							<input
@@ -88,8 +85,7 @@ const Contacts = () => {
 						<div className="relative mb-4">
 							<label
 								htmlFor="message"
-								className="leading-7 text-sm text-gray-600"
-							>
+								className="leading-7 text-sm text-gray-600">
 								Message
 							</label>
 							<textarea
@@ -102,8 +98,7 @@ const Contacts = () => {
 						</div>
 						<button
 							onClick={() => handleFeedback()}
-							className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-						>
+							className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
 							Send
 						</button>
 						<p className="text-xs text-gray-500 mt-3">

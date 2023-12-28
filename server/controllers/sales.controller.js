@@ -60,5 +60,5 @@ module.exports = {
 	getAllSales,
 	getRevenue,
 	getByBookingId,
-	updateSale,
+	updateSale
 };

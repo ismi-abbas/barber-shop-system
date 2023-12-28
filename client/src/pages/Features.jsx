@@ -12,7 +12,7 @@ const Features = () => {
 						</h1>
 						<p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">
 							Transform your look with our skilled barbers and trendy styles.
-							Experience grooming like never before at BarberBook.co.
+							Experience grooming like never before at BarberBook.
 						</p>
 						<div className="flex mt-6 justify-center">
 							<div className="w-16 h-1 rounded-full bg-indigo-500 inline-flex" />
@@ -28,8 +28,7 @@ const Features = () => {
 									strokeLinejoin="round"
 									strokeWidth={2}
 									className="w-10 h-10"
-									viewBox="0 0 24 24"
-								>
+									viewBox="0 0 24 24">
 									<path d="M22 12h-4l-3 9L9 3l-3 9H2" />
 								</svg>
 							</div>
@@ -51,8 +50,7 @@ const Features = () => {
 										strokeLinejoin="round"
 										strokeWidth={2}
 										className="w-4 h-4 ml-2"
-										viewBox="0 0 24 24"
-									>
+										viewBox="0 0 24 24">
 										<path d="M5 12h14M12 5l7 7-7 7" />
 									</svg>
 								</a>
@@ -67,8 +65,7 @@ const Features = () => {
 									strokeLinejoin="round"
 									strokeWidth={2}
 									className="w-10 h-10"
-									viewBox="0 0 24 24"
-								>
+									viewBox="0 0 24 24">
 									<circle cx={6} cy={6} r={3} />
 									<circle cx={6} cy={18} r={3} />
 									<path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12" />
@@ -92,8 +89,7 @@ const Features = () => {
 										strokeLinejoin="round"
 										strokeWidth={2}
 										className="w-4 h-4 ml-2"
-										viewBox="0 0 24 24"
-									>
+										viewBox="0 0 24 24">
 										<path d="M5 12h14M12 5l7 7-7 7" />
 									</svg>
 								</a>
@@ -108,8 +104,7 @@ const Features = () => {
 									strokeLinejoin="round"
 									strokeWidth={2}
 									className="w-10 h-10"
-									viewBox="0 0 24 24"
-								>
+									viewBox="0 0 24 24">
 									<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
 									<circle cx={12} cy={7} r={4} />
 								</svg>
@@ -131,8 +126,7 @@ const Features = () => {
 										strokeLinejoin="round"
 										strokeWidth={2}
 										className="w-4 h-4 ml-2"
-										viewBox="0 0 24 24"
-									>
+										viewBox="0 0 24 24">
 										<path d="M5 12h14M12 5l7 7-7 7" />
 									</svg>
 								</a>

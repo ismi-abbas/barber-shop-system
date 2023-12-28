@@ -4,7 +4,7 @@ const {
 	create,
 	update,
 	remove,
-	login,
+	login
 } = require("../models/customer.model");
 const { findBookingByShopId } = require("../models/booking.model");
 
@@ -87,17 +87,13 @@ const customerLogin = async ({ email, password }) => {
 						name: data.name,
 						email: data.email,
 						phone: data.phone,
-						token: token,
+						token: token
 					},
 					200,
 					"success"
 				);
 			} else {
-				return utils.handleError(
-					"Invalid password",
-					403,
-					"Invalid password"
-				);
+				return utils.handleError("Invalid password", 403, "Invalid password");
 			}
 		} else {
 			return utils.handleError("User not found", 404, "User not found");
@@ -113,5 +109,5 @@ module.exports = {
 	createCustomer,
 	updateCustomer,
 	deleteCustomer,
-	customerLogin,
+	customerLogin
 };

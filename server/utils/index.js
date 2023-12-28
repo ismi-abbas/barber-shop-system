@@ -6,18 +6,14 @@ const prepareResponse = (data, statusCode, message) => {
 	return {
 		statusCode,
 		data,
-		message,
+		message
 	};
 };
 
 const handleError = (error, statusCode, message) => {
 	logger.error("An error occurred " + error);
 
-	return prepareResponse(
-		error,
-		statusCode,
-		message ?? "Internal Server Error"
-	);
+	return prepareResponse(error, statusCode, message ?? "Internal Server Error");
 };
 
 const handleExceptions = (func, params) => {
@@ -46,9 +42,9 @@ const generateJWTToken = async (data) => {
 			id: data.id,
 			name: data.name,
 			email: data.email,
-			phone: data.phone,
+			phone: data.phone
 		},
-		"abbashensem",
+		"nabilpalinghensem",
 		{ expiresIn: "1h" }
 	);
 };
@@ -59,5 +55,5 @@ module.exports = {
 	handleExceptions,
 	hashPasssword,
 	comparePasswords,
-	generateJWTToken,
+	generateJWTToken
 };

@@ -1,7 +1,6 @@
 const { executeQuery } = require("../utils/db");
 const { logger } = require("../utils/logger");
 
-// Bookings functions
 const findAll = async () => {
 	try {
 		const query = `SELECT * FROM barber_shop.Bookings;`;
@@ -30,7 +29,7 @@ const create = async ({
 	serviceId,
 	servicePrice,
 	date,
-	status,
+	status
 }) => {
 	try {
 		const bookingQuery =
@@ -41,7 +40,7 @@ const create = async ({
 			new Date(date),
 			status,
 			barbershopId,
-			serviceId,
+			serviceId
 		];
 
 		const bookingResponse = await executeQuery(bookingQuery, bookingData);
@@ -59,7 +58,7 @@ const create = async ({
 				barberId,
 				"unpaid",
 				lastBookingId,
-				0,
+				0
 			];
 
 			const salesResponse = await executeQuery(salesQuery, salesData);
@@ -82,7 +81,7 @@ const update = async ({
 	barberId,
 	customerId,
 	date_time,
-	status,
+	status
 }) => {
 	try {
 		let query = "UPDATE Bookings SET ";
@@ -222,5 +221,5 @@ module.exports = {
 	update,
 	remove,
 	findByCustomerId,
-	findBookingByShopId,
+	findBookingByShopId
 };
