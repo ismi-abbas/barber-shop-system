@@ -16,19 +16,21 @@ import { format, parseISO } from "date-fns";
 import StoreAnalytics from "./StoreAnalytics";
 
 const Analytics = () => {
+	const shopId = JSON.parse(sessionStorage.getItem("shopId"));
+
 	const { data: weeklyRevenue } = useQuery({
 		queryKey: ["weeklyRevenue"],
-		queryFn: () => getRevenue("weekly")
+		queryFn: () => getRevenue(shopId, "weekly")
 	});
 
 	const { data: monthlyRevenue } = useQuery({
 		queryKey: ["monthlyRevenue"],
-		queryFn: () => getRevenue("monthly")
+		queryFn: () => getRevenue(shopId, "monthly")
 	});
 
 	const { data: todaysRevenue } = useQuery({
 		queryKey: ["todaysRevenue"],
-		queryFn: () => getRevenue("today")
+		queryFn: () => getRevenue(shopId, "today")
 	});
 
 	const formattedData = weeklyRevenue?.data.map((revenue) => {

@@ -16,9 +16,9 @@ sales.post("/order/create", async (req, res) => {
 	res.status(response.statusCode).send(response);
 });
 
-sales.get("/revenue/:type", async (req, res) => {
-	const { type } = req.params;
-	const response = await getRevenue(type);
+sales.get("/revenue/:shopId/:type", async (req, res) => {
+	const { shopId, type } = req.params;
+	const response = await getRevenue(shopId, type);
 
 	res.status(response.statusCode).send(response);
 });

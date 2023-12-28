@@ -40,8 +40,8 @@ export const updateSale = async ({ paymentStatus, salesId }) => {
 	}
 };
 
-export const getRevenue = async (type) => {
-	const response = await apiClient.get(`/sales/revenue/${type}`);
+export const getRevenue = async (shopId, type) => {
+	const response = await apiClient.get(`/sales/revenue/${shopId}/${type}`);
 
 	if (response.status === 200) {
 		return response.data;

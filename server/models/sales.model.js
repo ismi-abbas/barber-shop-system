@@ -86,7 +86,7 @@ const addOrder = async ({
 	}
 };
 
-const getRevenue = async (type) => {
+const getRevenue = async (shopId, type) => {
 	try {
 		let query = "";
 
@@ -95,23 +95,24 @@ const getRevenue = async (type) => {
 							COUNT(DISTINCT id) AS total_customers,
 							SUM(amount) AS daily_revenue 
 							FROM barber_shop.Sales
-							WHERE WEEK(date) = WEEK(CURDATE()) AND payment_status = 'paid'
+							WHERE WEEK(date) = WEEK(CURDATE()) AND payment_status = 'paid' AND barbershop_id = ?
 							GROUP BY day;`;
 		} else if (type === "today") {
 			query = `SELECT SUM(amount) AS total_sales_today,
 							COUNT(DISTINCT id) AS total_customers
 							FROM barber_shop.Sales
-							WHERE DATE(date) = CURDATE() AND payment_status = 'paid';`;
+							WHERE DATE(date) = CURDATE() AND payment_status = 'paid' AND barbershop_id = ?`;
 		} else {
 			query = `SELECT DATE_FORMAT(date, '%Y-%m') AS month,
 							DATE(date)                 AS day,
 							SUM(amount)                AS daily_revenue
 							FROM barber_shop.Sales
+							WHERE barbershop_id = ?
 							GROUP BY month, day
 							ORDER BY month, day;`;
 		}
 
-		const response = await executeQuery(query, null);
+		const response = await executeQuery(query, [shopId]);
 
 		if (response) {
 			return response;

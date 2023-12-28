@@ -24,9 +24,9 @@ const addToSales = async (data) => {
 	}
 };
 
-const getRevenue = async (type) => {
+const getRevenue = async (shopId, type) => {
 	try {
-		const response = await salesModel.getRevenue(type);
+		const response = await salesModel.getRevenue(shopId, type);
 
 		console.log(response);
 
