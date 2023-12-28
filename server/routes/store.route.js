@@ -1,5 +1,9 @@
 const express = require("express");
-const { addStoreSales } = require("../controllers/store.controller");
+const {
+	addStoreSales,
+	getRevenue,
+	getStoreSales
+} = require("../controllers/store.controller");
 
 const store = express.Router();
 
@@ -17,9 +21,9 @@ store.post("/sales", async (req, res) => {
 	res.status(response.statusCode).send(response);
 });
 
-store.get("/totalSales/:type", async (req, res) => {
-	const { type } = req.params;
-	const response = await getTotalSales({ type });
+store.get("/revenue/:shopId/:type", async (req, res) => {
+	const { shopId, type } = req.params;
+	const response = await getRevenue(shopId, type);
 
 	res.status(response.statusCode).send(response);
 });

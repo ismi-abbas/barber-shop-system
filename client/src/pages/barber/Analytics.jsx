@@ -13,6 +13,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { getRevenue } from "../../api/sales";
 import { format, parseISO } from "date-fns";
+import StoreAnalytics from "./StoreAnalytics";
 
 const Analytics = () => {
 	const { data: weeklyRevenue } = useQuery({
@@ -50,14 +51,13 @@ const Analytics = () => {
 			month: format(parseISO(month), "LLL"),
 			total_revenue: aggregatedData[month]
 		}));
-
-		console.log(totalData);
 	}
 
 	return (
 		<Layout>
-			<div className="container mx-auto">
-				<div>
+			<div className="container mx-auto mt-10 border p-4 rounded-md">
+				<h2 className="text-2xl font-medium">Barbershop Analytics</h2>
+				<div className="mt-4">
 					<div className="font-medium text-xl">Weekly Revenue</div>
 					<ComposedChart
 						className="text-sm mt-4"
@@ -132,6 +132,8 @@ const Analytics = () => {
 					</div>
 				</div>
 			</div>
+
+			<StoreAnalytics />
 		</Layout>
 	);
 };

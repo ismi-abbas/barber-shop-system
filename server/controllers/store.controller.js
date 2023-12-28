@@ -1,4 +1,4 @@
-const { getAll, add } = require("../models/store.model");
+const { getAll, add, getStoreRevenue } = require("../models/store.model");
 const utils = require("../utils");
 
 const getStoreSales = async () => {
@@ -37,7 +37,16 @@ const addStoreSales = async ({
 	}
 };
 
+const getRevenue = async (shopId, type) => {
+	try {
+		const response = await getStoreRevenue(shopId, type);
+
+		return utils.prepareResponse(response, 200, "success");
+	} catch (error) {}
+};
+
 module.exports = {
 	getStoreSales,
-	addStoreSales
+	addStoreSales,
+	getRevenue
 };

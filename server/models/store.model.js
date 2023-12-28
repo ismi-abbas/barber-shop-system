@@ -36,7 +36,46 @@ const getAll = async () => {
 	}
 };
 
+const getStoreRevenue = async (barbershopId, type) => {
+	try {
+		let query = "";
+
+		if (type === "weekly") {
+			query = `SELECT DATE(date)                  AS day,
+						COUNT(DISTINCT customer_id) AS total_customers,
+						SUM(total)                  AS daily_revenue
+						FROM Store_Sales
+						WHERE WEEK(date) = WEEK(CURDATE()) AND barbershop_id = ?
+						GROUP BY day;`;
+		} else if (type === "today") {
+			query = `SELECT SUM(total)                  AS total_sales_today,
+						COUNT(DISTINCT customer_id) AS total_customers
+						FROM Store_Sales
+						WHERE DATE(date) = CURDATE() AND barbershop_id = ?;`;
+		} else {
+			query = `SELECT DATE_FORMAT(date, '%Y-%m') AS month,
+						DATE(date)                 AS day,
+						SUM(total)                 AS daily_revenue
+						FROM Store_Sales
+						WHERE barbershop_id = ?
+						GROUP BY month, day
+						ORDER BY month, day;`;
+		}
+
+		const response = await executeQuery(query, [barbershopId]);
+
+		if (response) {
+			return response;
+		} else {
+			return "No revenue record found";
+		}
+	} catch (error) {
+		logger.error(`Error fetching order details: ${error.message}`);
+	}
+};
+
 module.exports = {
 	add,
-	getAll
+	getAll,
+	getStoreRevenue
 };
